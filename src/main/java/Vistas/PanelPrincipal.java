@@ -14,7 +14,7 @@ public class PanelPrincipal extends JPanel {
         this.add(com, BorderLayout.NORTH);
 
 
-        this.setBackground(Color.GREEN);
+        this.setBackground(Color.LIGHT_GRAY);
     }
     
     public void paintComponent(Graphics g){
