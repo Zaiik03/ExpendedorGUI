@@ -7,23 +7,23 @@ public class Expendedor {
     /**
      * Deposito para CocaCola
      */
-    private Deposito<Bebida> coca;
+    public Deposito<Bebida> coca;
     /**
      * Deposito para Sprite
      */
-    private Deposito<Bebida> sprite;
+    public Deposito<Bebida> sprite;
     /**
      * Deposito para Fanta
      */
-    private Deposito<Bebida> fanta;
+    public Deposito<Bebida> fanta;
     /**
      * Deposito para Snikers
      */
-    private Deposito<Dulce> snickers;
+    public Deposito<Dulce> snickers;
     /**
      * Deposito para Super8
      */
-    private Deposito<Dulce> super8;
+    public Deposito<Dulce> super8;
     /**
      * Deposito para Monedas
      */

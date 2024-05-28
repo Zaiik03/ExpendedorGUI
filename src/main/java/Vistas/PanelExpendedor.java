@@ -48,7 +48,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
 
 
-
+        this.setBackground(Color.LIGHT_GRAY);
     }
 
 
@@ -56,14 +56,29 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == boton_Fanta) {
             comprasComprador(Expendedor.FANTA);
+            if(expendedor.fanta.checkSize()){
+                boton_Fanta.setEnabled(false);
+            }
         } else if(e.getSource() == boton_Sprite){
-            System.out.println("COMPRASTE SPRITE");
+            comprasComprador(Expendedor.SPRITE);
+            if(expendedor.sprite.checkSize()){
+                boton_Sprite.setEnabled(false);
+            }
         } else if(e.getSource() == boton_CocaCola){
-            System.out.println("COMPRASTE COCAINA");
+            comprasComprador(Expendedor.COCA);
+            if(expendedor.coca.checkSize()){
+                boton_CocaCola.setEnabled(false);
+            }
         } else if(e.getSource() == boton_Snickers){
-            System.out.println("COMPRASTE SNICKERS");
+            comprasComprador(Expendedor.SNICKERS);
+            if(expendedor.snickers.checkSize()){
+                boton_Snickers.setEnabled(false);
+            }
         } else if(e.getSource() == boton_Super8){
-            System.out.println("COMPRASTE SUPER88");
+            comprasComprador(Expendedor.SUPER8);
+            if(expendedor.super8.checkSize()){
+                boton_Super8.setEnabled(false);
+            }
         }
 
     }
