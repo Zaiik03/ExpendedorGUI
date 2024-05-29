@@ -15,8 +15,10 @@ public class PanelComprador extends JPanel implements ActionListener {
     private JRadioButton moneda100;
     private JRadioButton moneda500;
     private JRadioButton moneda1000;
-    private JButton seleccion_moneda;
+    private JButton confirmar_moneda;
 
+    int seleccion_moneda;
+    Moneda moneda;
     public PanelComprador(){
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1280,300));
@@ -29,14 +31,14 @@ public class PanelComprador extends JPanel implements ActionListener {
         moneda100 = new JRadioButton("Moneda de 100");
         moneda500 = new JRadioButton("Moneda de 500");
         moneda1000 = new JRadioButton("Moneda de 1000");
-        seleccion_moneda = new JButton("a");
+        confirmar_moneda = new JButton("a");
 
         contenedor_monedas.add(panel_monedas);
         panel_monedas.setLayout(new GridLayout(4,1,10,10));
         panel_monedas.add(moneda100);
         panel_monedas.add(moneda500);
         panel_monedas.add(moneda1000);
-        panel_monedas.add(seleccion_moneda);
+        panel_monedas.add(confirmar_moneda);
 
         ButtonGroup grupo_monedas = new ButtonGroup();
         grupo_monedas.add(moneda100);
@@ -51,7 +53,26 @@ public class PanelComprador extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == moneda100){
+            seleccion_moneda = 100;
+            moneda = new Moneda100();
+        } else if(e.getSource() == moneda500){
+            seleccion_moneda = 500;
+            moneda = new Moneda500();
+        } else if(e.getSource() == moneda1000){
+            seleccion_moneda = 1000;
+            moneda = new Moneda1000();
+        } else if(e.getSource() == confirmar_moneda){
+            if(seleccion_moneda == 100){
+                moneda = new Moneda100();
+            } else if(seleccion_moneda == 500){
+                moneda = new Moneda500();
+            } else if(seleccion_moneda == 1000){
+                moneda = new Moneda1000();
+            }
 
+            System.out.println(moneda.getSerie());
+        }
     }
 
     public void paintComponent(Graphics g){
