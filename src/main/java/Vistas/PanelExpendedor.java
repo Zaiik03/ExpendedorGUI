@@ -148,7 +148,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_productos.add(label_snickers);
         panel_productos.add(label_super8);
 
-
+        /* INTENTO DE ANIMACIONES */
+        Timer timer_fanta = new Timer(100,this);
+        timer_fanta.start();
 
 
 
@@ -229,6 +231,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             boton_Snickers.setEnabled(true);
             boton_CocaCola.setEnabled(true);
         }
+
+        
     }
 
     public void comprasComprador(int producto){
@@ -258,7 +262,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             g2d.drawImage(bg, 0,0,this);
         }
 
-        g2d.drawImage(fanta, );
+        g2d.drawImage(fanta,x,y,null);
+
+
 
     }
 
