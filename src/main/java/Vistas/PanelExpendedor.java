@@ -61,6 +61,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
         boton_recoger = new JButton("Recoger");
         boton_recoger.setFocusable(false);
+        boton_recoger.setEnabled(false);
         boton_recoger.addActionListener(this);
         panel_botones.add(boton_recoger);
 
@@ -105,11 +106,23 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             }
         } else if(e.getSource() == boton_recoger){
             boton_comprar.setEnabled(false);
+            boton_Fanta.setEnabled(true);
+            boton_Sprite.setEnabled(true);
+            boton_CocaCola.setEnabled(true);
+            boton_Snickers.setEnabled(true);
+            boton_Super8.setEnabled(true);
             c.recogerProducto(expendedor);
             seleccion = 0;
+            boton_recoger.setEnabled(false);
         } else if(e.getSource() == boton_comprar){
             boton_recoger.setEnabled(true);
             comprasComprador(seleccion);
+            boton_comprar.setEnabled(false);
+            boton_Fanta.setEnabled(false);
+            boton_Sprite.setEnabled(false);
+            boton_CocaCola.setEnabled(false);
+            boton_Snickers.setEnabled(false);
+            boton_Super8.setEnabled(false);
         }
     }
 

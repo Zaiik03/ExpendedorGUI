@@ -12,23 +12,38 @@ import java.awt.event.ActionListener;
 
 public class PanelComprador extends JPanel implements ActionListener {
 
-
-    private Expendedor expendedor;
-    private Moneda1000 m = new Moneda1000();
-    private Comprador c;
+    private JRadioButton moneda100;
+    private JRadioButton moneda500;
+    private JRadioButton moneda1000;
+    private JButton seleccion_moneda;
 
     public PanelComprador(){
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1280,300));
 
-        JPanel panel_monedas = new JPanel();
-        this.add(panel_monedas, BorderLayout.CENTER);
-        panel_monedas.setBackground(Color.GREEN);
+        JPanel contenedor_monedas = new JPanel();
+        this.add(contenedor_monedas, BorderLayout.CENTER);
+        contenedor_monedas.setBackground(Color.GREEN);
 
-        JPanel panel_compra = new JPanel();
-        this.add(panel_compra, BorderLayout.EAST);
-        panel_compra.setBackground(Color.BLUE);
-        panel_compra.setPreferredSize(new Dimension(400, 5));
+        JPanel panel_monedas = new JPanel();
+        moneda100 = new JRadioButton("Moneda de 100");
+        moneda500 = new JRadioButton("Moneda de 500");
+        moneda1000 = new JRadioButton("Moneda de 1000");
+        seleccion_moneda = new JButton("a");
+
+        contenedor_monedas.add(panel_monedas);
+        panel_monedas.setLayout(new GridLayout(4,1,10,10));
+        panel_monedas.add(moneda100);
+        panel_monedas.add(moneda500);
+        panel_monedas.add(moneda1000);
+        panel_monedas.add(seleccion_moneda);
+
+        ButtonGroup grupo_monedas = new ButtonGroup();
+        grupo_monedas.add(moneda100);
+        grupo_monedas.add(moneda500);
+        grupo_monedas.add(moneda1000);
+
+
 
 
 
@@ -36,21 +51,6 @@ public class PanelComprador extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-    }
-
-    public void comprasComprador(int producto){
-        try{
-            expendedor = new Expendedor(10);
-            c =  new Comprador(m, producto, expendedor);
-            System.out.println(c.queConsumiste()+", " + c.cuantoVuelto());
-        } catch (PagoIncorrectoException a){
-            System.out.println("Error de tipo pago: " + a.getMessage());
-        } catch (PagoInsuficienteException a){
-            System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + m.getValor());
-        } catch (NoHayProductoException a){
-            System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + m.getValor());
-        }
 
     }
 
