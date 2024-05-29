@@ -12,14 +12,21 @@ import java.awt.event.ActionListener;
 
 public class PanelComprador extends JPanel implements ActionListener {
 
-    private JRadioButton moneda100;
-    private JRadioButton moneda500;
-    private JRadioButton moneda1000;
+    public JRadioButton moneda100;
+    public JRadioButton moneda500;
+    public JRadioButton moneda1000;
     private JButton confirmar_moneda;
 
     int seleccion_moneda;
-    Moneda moneda;
-    public PanelComprador(){
+    private Moneda moneda;
+
+    private PanelExpendedor panel_expendedor;
+
+    private Timer timer;
+
+    public PanelComprador(PanelExpendedor panel_expendedorr){
+        panel_expendedor = panel_expendedorr;
+
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1280,300));
 
@@ -31,7 +38,13 @@ public class PanelComprador extends JPanel implements ActionListener {
         moneda100 = new JRadioButton("Moneda de 100");
         moneda500 = new JRadioButton("Moneda de 500");
         moneda1000 = new JRadioButton("Moneda de 1000");
-        confirmar_moneda = new JButton("a");
+        confirmar_moneda = new JButton("Enviar");
+
+        confirmar_moneda.addActionListener(this);
+        moneda100.addActionListener(this);
+        moneda500.addActionListener(this);
+        moneda1000.addActionListener(this);
+
 
         contenedor_monedas.add(panel_monedas);
         panel_monedas.setLayout(new GridLayout(4,1,10,10));
@@ -45,33 +58,42 @@ public class PanelComprador extends JPanel implements ActionListener {
         grupo_monedas.add(moneda500);
         grupo_monedas.add(moneda1000);
 
-
-
-
-
+        timer = new Timer(100, null);
+        timer.addActionListener(this);
+        timer.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == moneda100){
             seleccion_moneda = 100;
-            moneda = new Moneda100();
         } else if(e.getSource() == moneda500){
             seleccion_moneda = 500;
-            moneda = new Moneda500();
         } else if(e.getSource() == moneda1000){
             seleccion_moneda = 1000;
-            moneda = new Moneda1000();
         } else if(e.getSource() == confirmar_moneda){
             if(seleccion_moneda == 100){
-                moneda = new Moneda100();
+                panel_expendedor.moneda = new Moneda100();
+                moneda100.setEnabled(false);
+                moneda500.setEnabled(false);
+                moneda1000.setEnabled(false);
             } else if(seleccion_moneda == 500){
-                moneda = new Moneda500();
+                panel_expendedor.moneda = new Moneda500();
+                moneda100.setEnabled(false);
+                moneda500.setEnabled(false);
+                moneda1000.setEnabled(false);
             } else if(seleccion_moneda == 1000){
-                moneda = new Moneda1000();
+                panel_expendedor.moneda = new Moneda1000();
+                moneda100.setEnabled(false);
+                moneda500.setEnabled(false);
+                moneda1000.setEnabled(false);
             }
-
-            System.out.println(moneda.getSerie());
+        } else if(e.getSource() == timer){
+            if(panel_expendedor.moneda == null){
+                moneda100.setEnabled(true);
+                moneda500.setEnabled(true);
+                moneda1000.setEnabled(true);
+            }
         }
     }
 

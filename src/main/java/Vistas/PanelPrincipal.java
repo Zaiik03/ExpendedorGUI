@@ -1,5 +1,8 @@
 package Vistas;
 
+import Modelos.Moneda;
+import Modelos.Moneda100;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +13,7 @@ public class PanelPrincipal extends JPanel {
     public PanelPrincipal(){
         this.setLayout(new BorderLayout());
         exp = new PanelExpendedor();
-        com = new PanelComprador();
+        com = new PanelComprador(exp);
 
         this.add(com, BorderLayout.SOUTH);
         this.add(exp, BorderLayout.CENTER);

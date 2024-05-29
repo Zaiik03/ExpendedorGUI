@@ -1,5 +1,7 @@
 package Modelos;
 
+import Vistas.PanelExpendedor;
+
 /**
  * Clase encargada de comprar
  */
@@ -47,6 +49,7 @@ public class Comprador {
 
     public void recogerProducto(Expendedor exp){
         // Dejarlo en espera
+
         while(true){
             Moneda moneda = exp.getVuelto();
             if(moneda == null){

@@ -16,14 +16,16 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JButton boton_CocaCola;
     private JButton boton_Snickers;
     private JButton boton_Super8;
+    private JButton boton_reset;
 
     // Prueba
     private Expendedor expendedor;
-    private Moneda1000 m = new Moneda1000();
+    public Moneda moneda;
     private Comprador c;
     private int seleccion = 0;
+
     public PanelExpendedor(){
-        expendedor = new Expendedor(10);
+        expendedor = new Expendedor(3);
 
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1280,300));
@@ -70,6 +72,11 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_comprar.addActionListener(this);
         boton_comprar.setEnabled(false);
         panel_botones.add(boton_comprar);
+
+        boton_reset = new JButton("Rellenar");
+        boton_reset.setFocusable(false);
+        boton_reset.addActionListener(this);
+        panel_botones.add(boton_reset);
     }
 
     @Override
@@ -104,14 +111,28 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             if(expendedor.super8.checkSize()){
                 boton_Super8.setEnabled(false);
             }
-        } else if(e.getSource() == boton_recoger){
+        } else if(e.getSource() == boton_recoger) {
             boton_comprar.setEnabled(false);
-            boton_Fanta.setEnabled(true);
-            boton_Sprite.setEnabled(true);
-            boton_CocaCola.setEnabled(true);
-            boton_Snickers.setEnabled(true);
-            boton_Super8.setEnabled(true);
-            c.recogerProducto(expendedor);
+            if (!expendedor.coca.checkSize()) {
+                boton_CocaCola.setEnabled(true);
+            }
+
+            if (!expendedor.sprite.checkSize()) {
+                boton_Sprite.setEnabled(true);
+            }
+            if (!expendedor.fanta.checkSize()) {
+                boton_Fanta.setEnabled(true);
+            }
+            if(!expendedor.snickers.checkSize()) {
+                boton_Snickers.setEnabled(true);
+            }
+            if(!expendedor.super8.checkSize()){
+                boton_Super8.setEnabled(true);
+            }
+            if(c != null){
+                c.recogerProducto(expendedor);
+                moneda = null;
+            }
             seleccion = 0;
             boton_recoger.setEnabled(false);
         } else if(e.getSource() == boton_comprar){
@@ -123,18 +144,25 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             boton_CocaCola.setEnabled(false);
             boton_Snickers.setEnabled(false);
             boton_Super8.setEnabled(false);
+        } else if(e.getSource() == boton_reset){
+            expendedor = new Expendedor(2);
+            boton_Super8.setEnabled(true);
+            boton_Fanta.setEnabled(true);
+            boton_Sprite.setEnabled(true);
+            boton_Snickers.setEnabled(true);
+            boton_CocaCola.setEnabled(true);
         }
     }
 
     public void comprasComprador(int producto){
         try{
-            c =  new Comprador(m, producto, expendedor);
+            c =  new Comprador(moneda, producto, expendedor);
         } catch (PagoIncorrectoException a){
             System.out.println("Error de tipo pago: " + a.getMessage());
         } catch (PagoInsuficienteException a){
-            System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + m.getValor());
+            System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
         } catch (NoHayProductoException a){
-            System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + m.getValor());
+            System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
         }
 
     }
