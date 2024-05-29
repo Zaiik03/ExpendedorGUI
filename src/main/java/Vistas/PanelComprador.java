@@ -24,20 +24,24 @@ public class PanelComprador extends JPanel implements ActionListener {
 
     private Timer timer;
 
+    Font fontRadioButton = new Font("Arial", Font.PLAIN, 14);
     public PanelComprador(PanelExpendedor panel_expendedorr){
         panel_expendedor = panel_expendedorr;
-
+        this.setOpaque(false);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(800,800));
+        this.setPreferredSize(new Dimension(800,100));
 
-        JPanel contenedor_monedas = new JPanel();
-        this.add(contenedor_monedas, BorderLayout.CENTER);
-        // contenedor_monedas.setBackground(Color.GREEN);
+        /* JPanel contenedor_monedas = new JPanel();
+        this.add(contenedor_monedas, BorderLayout.EAST);
 
-        JPanel panel_monedas = new JPanel();
-        moneda100 = new JRadioButton("Moneda de 100");
-        moneda500 = new JRadioButton("Moneda de 500");
-        moneda1000 = new JRadioButton("Moneda de 1000");
+        JPanel panel_monedas = new JPanel(); */
+
+        moneda100 = new JRadioButton("$100");
+        moneda500 = new JRadioButton("$500");
+        moneda1000 = new JRadioButton("$1000");
+        moneda100.setFont(fontRadioButton);
+        moneda500.setFont(fontRadioButton);
+        moneda1000.setFont(fontRadioButton);
         confirmar_moneda = new JButton("Enviar");
 
         confirmar_moneda.addActionListener(this);
@@ -45,7 +49,7 @@ public class PanelComprador extends JPanel implements ActionListener {
         moneda500.addActionListener(this);
         moneda1000.addActionListener(this);
 
-        contenedor_monedas.setOpaque(false);
+        /* contenedor_monedas.setOpaque(false);
         panel_monedas.setOpaque(false);
         panel_expendedor.setOpaque(false);
 
@@ -55,12 +59,21 @@ public class PanelComprador extends JPanel implements ActionListener {
         panel_monedas.add(moneda100);
         panel_monedas.add(moneda500);
         panel_monedas.add(moneda1000);
-        panel_monedas.add(confirmar_moneda);
+        panel_monedas.add(confirmar_moneda); */
+
+        panel_expendedor.panel_botones.add(Box.createVerticalStrut(10));
+        panel_expendedor.panel_botones.add(moneda100);
+        panel_expendedor.panel_botones.add(moneda500);
+        panel_expendedor.panel_botones.add(moneda1000);
+        panel_expendedor.panel_botones.add(Box.createVerticalStrut(10));
+        panel_expendedor.panel_botones.add(confirmar_moneda);
 
         ButtonGroup grupo_monedas = new ButtonGroup();
         grupo_monedas.add(moneda100);
         grupo_monedas.add(moneda500);
         grupo_monedas.add(moneda1000);
+
+
 
         timer = new Timer(100, null);
         timer.addActionListener(this);
