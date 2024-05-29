@@ -26,24 +26,7 @@ public class Comprador {
      */
     public Comprador(Moneda monedaCompra, int cualProducto, Expendedor exp) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException{
         exp.comprarProducto(monedaCompra, cualProducto);
-
-        // Dejarlo en espera
         producto = exp.getProducto();
-        while(true){
-            Moneda moneda = exp.getVuelto();
-            if(moneda == null){
-                break;
-            } else{
-                vuelto += moneda.getValor();
-            }
-        }
-
-        if(producto == null){
-            sonido = null;
-        } else{
-            sonido = producto.getConsumir();
-        }
-
     }
 
     /**
@@ -62,7 +45,25 @@ public class Comprador {
         return sonido;
     }
 
-    public Producto recogerProducto(){
-        return producto;
+    public void recogerProducto(Expendedor exp){
+        // Dejarlo en espera
+        while(true){
+            Moneda moneda = exp.getVuelto();
+            if(moneda == null){
+                break;
+            } else{
+                vuelto += moneda.getValor();
+            }
+        }
+        if(producto == null){
+            sonido = null;
+        } else{
+            sonido = producto.getConsumir();
+        }
+
+        System.out.println(this.queConsumiste()+", " + this.cuantoVuelto());
+        vuelto = 0;
+        sonido = "";
+        producto = null;
     }
 }

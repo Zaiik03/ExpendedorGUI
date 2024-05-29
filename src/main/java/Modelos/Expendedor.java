@@ -97,14 +97,15 @@ public class Expendedor {
 
         // Caso moneda null
 
-        if(moneda == null) {
-            throw new PagoIncorrectoException("Moneda nula");
-        }
-
         switch(cual){
             case COCA:
                 precio = Precios.COCA;
-
+                if(!depUnitarioBebida.checkSize() || !depUnitarioDulce.checkSize()){
+                    break;
+                }
+                if(moneda == null) {
+                    throw new PagoIncorrectoException("Moneda nula");
+                }
                 if(moneda.getValor() < precio.getPrecio()){ // PagoInsuficienteException
                     for(int i = 0;i < moneda.getValor()/100;i++){
                         monVu.addProducto(new Moneda100());
@@ -118,14 +119,25 @@ public class Expendedor {
                     }
                     throw new NoHayProductoException("No quedan CocaColas en el depósito");
                 } else {
-                    for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
-                        monVu.addProducto(new Moneda100());
+                    if(monVu.checkSize()){
+                        for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
+                            monVu.addProducto(new Moneda100());
+                        }
                     }
+
                     depUnitarioBebida.addProducto(coca.getProducto());
                 }
                 break;
             case SPRITE:
                 precio = Precios.SPRITE;
+
+                if(!depUnitarioBebida.checkSize() || !depUnitarioDulce.checkSize()){
+                    break;
+                }
+                if(moneda == null) {
+                    throw new PagoIncorrectoException("Moneda nula");
+                }
+
 
                 if(moneda.getValor() < precio.getPrecio()){
                     for(int i = 0;i < moneda.getValor()/100;i++){
@@ -140,8 +152,10 @@ public class Expendedor {
                     }
                     throw new NoHayProductoException("No quedan Sprites en el depósito");
                 } else {
-                    for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
-                        monVu.addProducto(new Moneda100());
+                    if(monVu.checkSize()){
+                        for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
+                            monVu.addProducto(new Moneda100());
+                        }
                     }
                     depUnitarioBebida.addProducto(sprite.getProducto());
                 }
@@ -149,6 +163,13 @@ public class Expendedor {
 
             case FANTA:
                 precio = Precios.FANTA;
+
+                if(!depUnitarioBebida.checkSize() || !depUnitarioDulce.checkSize()){
+                    break;
+                }
+                if(moneda == null) {
+                    throw new PagoIncorrectoException("Moneda nula");
+                }
 
                 if(moneda.getValor() < precio.getPrecio()){
                     for(int i = 0;i < moneda.getValor()/100;i++){
@@ -163,14 +184,23 @@ public class Expendedor {
                     }
                     throw new NoHayProductoException("No quedan Fantas en el depósito");
                 } else {
-                    for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
-                        monVu.addProducto(new Moneda100());
+                    if(monVu.checkSize()){
+                        for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
+                            monVu.addProducto(new Moneda100());
+                        }
                     }
                     depUnitarioBebida.addProducto(fanta.getProducto());
                 }
                 break;
             case SNICKERS:
                 precio = Precios.SNICKERS;
+
+                if(!depUnitarioBebida.checkSize() || !depUnitarioDulce.checkSize()){
+                    break;
+                }
+                if(moneda == null) {
+                    throw new PagoIncorrectoException("Moneda nula");
+                }
 
                 if(moneda.getValor() < precio.getPrecio()){
                     for(int i = 0;i < moneda.getValor()/100;i++){
@@ -185,14 +215,23 @@ public class Expendedor {
                     }
                     throw new NoHayProductoException("No quedan Snickers en el depósito");
                 } else {
-                    for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
-                        monVu.addProducto(new Moneda100());
+                    if(monVu.checkSize()){
+                        for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
+                            monVu.addProducto(new Moneda100());
+                        }
                     }
                     depUnitarioDulce.addProducto(snickers.getProducto());
                 }
                 break;
             case SUPER8:
                 precio = Precios.SUPER8;
+
+                if(!depUnitarioBebida.checkSize() || !depUnitarioDulce.checkSize()){
+                    break;
+                }
+                if(moneda == null) {
+                    throw new PagoIncorrectoException("Moneda nula");
+                }
 
                 if(moneda.getValor() < precio.getPrecio()){
                     for(int i = 0;i < moneda.getValor()/100;i++){
@@ -207,8 +246,10 @@ public class Expendedor {
                     }
                     throw new NoHayProductoException("No quedan Super8 en el depósito");
                 } else {
-                    for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
-                        monVu.addProducto(new Moneda100());
+                    if(monVu.checkSize()){
+                        for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
+                            monVu.addProducto(new Moneda100());
+                        }
                     }
                     depUnitarioDulce.addProducto(super8.getProducto());
                 }
