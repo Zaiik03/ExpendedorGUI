@@ -29,6 +29,12 @@ public class Expendedor {
      */
     private Deposito<Moneda> monVu;
     /**
+     * Deposito unitario despues de comprar
+     */
+    public DepositoUnitario<Dulce> depUnitarioDulce;
+
+    public DepositoUnitario<Bebida> depUnitarioBebida;
+    /**
      * Enum que contiene los precios
      */
     private Precios precio;
@@ -66,6 +72,8 @@ public class Expendedor {
         snickers = new Deposito<Dulce>();
         super8 = new Deposito<Dulce>();
         monVu = new Deposito<Moneda>();
+        depUnitarioBebida = new DepositoUnitario<Bebida>();
+        depUnitarioDulce = new DepositoUnitario<Dulce>();
 
         for(int i = 0;i < numProductos;i++){
             coca.addProducto(new CocaCola(100 + i));
@@ -85,7 +93,7 @@ public class Expendedor {
      * @throws PagoInsuficienteException, indica situación donde moneda es inferior al precio del producto
      * @throws NoHayProductoException, indica situación donde el Deposito no tiene stock del producto
      */
-    public Producto comprarProducto(Moneda moneda, int cual) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(Moneda moneda, int cual) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
 
         // Caso moneda null
 
@@ -113,8 +121,9 @@ public class Expendedor {
                     for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
                         monVu.addProducto(new Moneda100());
                     }
-                    return coca.getProducto();
+                    depUnitarioBebida.addProducto(coca.getProducto());
                 }
+                break;
             case SPRITE:
                 precio = Precios.SPRITE;
 
@@ -134,8 +143,9 @@ public class Expendedor {
                     for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
                         monVu.addProducto(new Moneda100());
                     }
-                    return sprite.getProducto();
+                    depUnitarioBebida.addProducto(sprite.getProducto());
                 }
+                break;
 
             case FANTA:
                 precio = Precios.FANTA;
@@ -156,8 +166,9 @@ public class Expendedor {
                     for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
                         monVu.addProducto(new Moneda100());
                     }
-                    return fanta.getProducto();
+                    depUnitarioBebida.addProducto(fanta.getProducto());
                 }
+                break;
             case SNICKERS:
                 precio = Precios.SNICKERS;
 
@@ -177,8 +188,9 @@ public class Expendedor {
                     for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
                         monVu.addProducto(new Moneda100());
                     }
-                    return snickers.getProducto();
+                    depUnitarioDulce.addProducto(snickers.getProducto());
                 }
+                break;
             case SUPER8:
                 precio = Precios.SUPER8;
 
@@ -198,8 +210,9 @@ public class Expendedor {
                     for(int i = 0;i < (moneda.getValor() - precio.getPrecio())/100;i++){
                         monVu.addProducto(new Moneda100());
                     }
-                    return super8.getProducto();
+                    depUnitarioDulce.addProducto(super8.getProducto());
                 }
+                break;
             default: // Comprar producto no existente
                 for(int i = 0;i < moneda.getValor()/100;i++) {
                     monVu.addProducto(new Moneda100());
@@ -215,5 +228,16 @@ public class Expendedor {
     public Moneda getVuelto(){
         return monVu.getProducto();
     }
+
+    public Producto getProducto(){
+        if(!depUnitarioDulce.checkSize()){
+            return depUnitarioDulce.getProducto();
+        } else if(!depUnitarioBebida.checkSize()){
+            return depUnitarioBebida.getProducto();
+        }
+        return null;
+    }
+
+
 }
 

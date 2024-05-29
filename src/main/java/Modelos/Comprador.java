@@ -8,6 +8,9 @@ public class Comprador {
      * String encargado de almacenar el valor que retorna el getConsumir
      */
     private String sonido;
+
+    private Producto producto = null;
+
     /**
      * valor numerico que almacenara el vuelo despues de la compra
      */
@@ -22,7 +25,10 @@ public class Comprador {
      * @throws NoHayProductoException caso donde no hay stock
      */
     public Comprador(Moneda monedaCompra, int cualProducto, Expendedor exp) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException{
-        Producto producto = exp.comprarProducto(monedaCompra, cualProducto);
+        exp.comprarProducto(monedaCompra, cualProducto);
+
+        // Dejarlo en espera
+        producto = exp.getProducto();
         while(true){
             Moneda moneda = exp.getVuelto();
             if(moneda == null){
@@ -54,5 +60,9 @@ public class Comprador {
      */
     public String queConsumiste(){
         return sonido;
+    }
+
+    public Producto recogerProducto(){
+        return producto;
     }
 }
