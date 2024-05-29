@@ -28,11 +28,11 @@ public class PanelComprador extends JPanel implements ActionListener {
         panel_expendedor = panel_expendedorr;
 
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(1280,300));
+        this.setPreferredSize(new Dimension(800,800));
 
         JPanel contenedor_monedas = new JPanel();
         this.add(contenedor_monedas, BorderLayout.CENTER);
-        contenedor_monedas.setBackground(Color.GREEN);
+        // contenedor_monedas.setBackground(Color.GREEN);
 
         JPanel panel_monedas = new JPanel();
         moneda100 = new JRadioButton("Moneda de 100");
@@ -44,6 +44,10 @@ public class PanelComprador extends JPanel implements ActionListener {
         moneda100.addActionListener(this);
         moneda500.addActionListener(this);
         moneda1000.addActionListener(this);
+
+        contenedor_monedas.setOpaque(false);
+        panel_monedas.setOpaque(false);
+        panel_expendedor.setOpaque(false);
 
 
         contenedor_monedas.add(panel_monedas);

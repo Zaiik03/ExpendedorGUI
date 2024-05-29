@@ -11,12 +11,13 @@ public class Ventana extends JFrame {
         this.setVisible(true);
         this.setTitle("ExpendedorGUI");
         this.setResizable(false);
-        this.setSize(600, 600);
+        this.setSize(777, 1024);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.black);
 
 
         this.add(panelPrincipal);
+        this.setContentPane(panelPrincipal);
 
     }
 }
