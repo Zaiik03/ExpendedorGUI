@@ -38,6 +38,21 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     Image sprite;
 
     BufferedImage bg;
+
+    private JLabel label_fanta;
+    private JLabel label_cocacola;
+    private JLabel label_sprite;
+    private JLabel label_snickers;
+    private JLabel label_super8;
+
+    /* PRUEBA ANIMACIONES */
+    int x;
+    int y;
+    int velocidadX = 5;
+    int velocidadY = 5;
+
+
+
     public PanelExpendedor(){
         this.setLayout(new BorderLayout());
         try {
@@ -136,11 +151,12 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_productos.setOpaque(false);
         panel_productos.setLayout(new GridLayout(4,3, 1,15));
 
-        JLabel label_fanta = new JLabel(new ImageIcon(fanta));
-        JLabel label_cocacola = new JLabel(new ImageIcon(cocacola));
-        JLabel label_sprite = new JLabel(new ImageIcon(sprite));
-        JLabel label_snickers = new JLabel(new ImageIcon(snickers));
-        JLabel label_super8 = new JLabel(new ImageIcon(super8));
+        //  ------------ Label de las imagenes ------------
+        label_fanta = new JLabel(new ImageIcon(fanta));
+        label_cocacola = new JLabel(new ImageIcon(cocacola));
+        label_sprite = new JLabel(new ImageIcon(sprite));
+        label_snickers = new JLabel(new ImageIcon(snickers));
+        label_super8 = new JLabel(new ImageIcon(super8));
 
         panel_productos.add(label_fanta);
         panel_productos.add(label_sprite);
@@ -151,9 +167,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         /* INTENTO DE ANIMACIONES */
         Timer timer_fanta = new Timer(100,this);
         timer_fanta.start();
-
-
-
+        x = label_fanta.getX();
+        y = label_fanta.getY();
 
 
     }
@@ -232,7 +247,17 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             boton_CocaCola.setEnabled(true);
         }
 
-        
+        /* INTENTO ANIMACION */
+
+        if(x <= 500){
+            x += velocidadX;
+        } else if(x > 500){
+            y += velocidadY;
+        }
+
+
+
+        repaint();
     }
 
     public void comprasComprador(int producto){
@@ -250,10 +275,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        int x = 0;
-        int y = 0;
-        int velocidadX = 1;
-        int velocidadY = 1;
+
 
 
         Graphics2D g2d = (Graphics2D) g;
@@ -262,9 +284,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             g2d.drawImage(bg, 0,0,this);
         }
 
-        g2d.drawImage(fanta,x,y,null);
-
-
+        g2d.drawImage(fanta, x, y,null);
 
     }
 
