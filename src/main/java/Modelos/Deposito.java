@@ -46,4 +46,11 @@ public class Deposito<T> {
             return false;
         }
     }
+
+    /**
+     * Metodo get que retorna la cantidad de productos
+     */
+    public int getSize(){
+        return arr.size();
+    }
 }

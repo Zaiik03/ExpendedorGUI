@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Modelos.*;
 
@@ -39,11 +40,13 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
     BufferedImage bg;
 
+    private ArrayList<JLabel> labels_fanta;
     private JLabel label_fanta;
-    private JLabel label_cocacola;
-    private JLabel label_sprite;
+    private ArrayList<JLabel> label_cocacola;
+    private ArrayList<JLabel> label_sprite;
     private JLabel label_snickers;
     private JLabel label_super8;
+    private JPanel panel_productos;
 
     /* PRUEBA ANIMACIONES */
     int x;
@@ -56,7 +59,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     public PanelExpendedor(){
         this.setLayout(new BorderLayout());
         try {
-            bg = ImageIO.read(new File("./src/main/java/Vistas/Fotos/expendedor.png"));
+            bg = ImageIO.read(new File("./src/main/java/Vistas/Fotos/expendedor.jpeg"));
             fanta = new ImageIcon("./src/main/java/Vistas/Fotos/fanta.png").getImage();
             cocacola = new ImageIcon("./src/main/java/Vistas/Fotos/cocacola.png").getImage();
             snickers = new ImageIcon("./src/main/java/Vistas/Fotos/snickers.png").getImage();
@@ -72,10 +75,13 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(777,1023));
 
         panel_botones = new JPanel();
+        Border borde = BorderFactory.createLineBorder(Color.green, 10);
+        panel_botones.setBorder(borde);
+
         this.add(panel_botones, BorderLayout.EAST);
         panel_botones.setLayout(new BoxLayout(panel_botones, BoxLayout.Y_AXIS));
         panel_botones.setOpaque(false);
-        panel_botones.setPreferredSize(new Dimension(125,0));
+        panel_botones.setPreferredSize(new Dimension(190,0));
 
 
 
@@ -108,7 +114,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Super8.setFocusable(false);
         boton_Super8.addActionListener(this);
         panel_botones.add(boton_Super8);
-        panel_botones.add(Box.createVerticalStrut(70));
+        panel_botones.add(Box.createVerticalStrut(100));
 
         boton_comprar = new JButton("Comprar");
         boton_comprar.setFocusable(false);
@@ -134,7 +140,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         JPanel panel_vacio = new JPanel();
         panel_vacio.setOpaque(false);
         this.add(panel_vacio, BorderLayout.NORTH);
-        panel_vacio.setPreferredSize(new Dimension(0,75));
+        panel_vacio.setPreferredSize(new Dimension(0,20));
 
         JPanel panel_vacio1 = new JPanel();
         panel_vacio1.setOpaque(false);
@@ -142,33 +148,47 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_vacio1.setPreferredSize(new Dimension(0,75));
 
 
-        JPanel panel_productos = new JPanel();
+        panel_productos = new JPanel();
 
-//        Border borde = BorderFactory.createLineBorder(Color.GREEN, 10);
-//        panel_productos.setBorder(borde);
+        Border borde1 = BorderFactory.createLineBorder(Color.GREEN, 10);
+        panel_productos.setBorder(borde1);
 
         this.add(panel_productos, BorderLayout.CENTER);
         panel_productos.setOpaque(false);
-        panel_productos.setLayout(new GridLayout(4,3, 1,15));
+        panel_productos.setLayout(null);
 
         //  ------------ Label de las imagenes ------------
-        label_fanta = new JLabel(new ImageIcon(fanta));
         label_cocacola = new JLabel(new ImageIcon(cocacola));
         label_sprite = new JLabel(new ImageIcon(sprite));
         label_snickers = new JLabel(new ImageIcon(snickers));
         label_super8 = new JLabel(new ImageIcon(super8));
 
-        panel_productos.add(label_fanta);
-        panel_productos.add(label_sprite);
-        panel_productos.add(label_cocacola);
-        panel_productos.add(label_snickers);
-        panel_productos.add(label_super8);
+        labels_fanta = new ArrayList<JLabel>();
+        labels_cocacola = new ArrayList<JLabel>();
+        labels_sprite = new ArrayList<JLabel>();
+        labels_snickers = new ArrayList<JLabel>();
+        labels_super8 = new ArrayList<JLabel>();
+
+        imagenProductos(labels_fanta, expendedor.fanta, 73, 195);
+        imagenProductos(labels_cocacola, expendedor.fanta, 73, 195);
+        imagenProductos(labels_sprite, expendedor.fanta, 73, 195);
+        imagenProductos(labels_snickers, expendedor.fanta, 73, 195);
+        imagenProductos(labels_super8, expendedor.fanta, 73, 195);
+
+
+
+
+        label_cocacola.setBounds(267, 195, 160, 120);
+        label_sprite.setBounds(70, 400, 160,120);
+        label_snickers.setBounds(100,40,120,90);
+        label_super8.setBounds(288, 40, 120, 90);
+
 
         /* INTENTO DE ANIMACIONES */
         Timer timer_fanta = new Timer(100,this);
         timer_fanta.start();
-        x = label_fanta.getX();
-        y = label_fanta.getY();
+        x = label_cocacola.getX();
+        y = label_cocacola.getY();
 
 
     }
@@ -280,12 +300,27 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
         Graphics2D g2d = (Graphics2D) g;
         if(bg != null){
-//            Image escalada = bg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
-            g2d.drawImage(bg, 0,0,this);
+            Image escalada = bg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+            g2d.drawImage(escalada, 0,0,this);
         }
 
-        g2d.drawImage(fanta, x, y,null);
+        // g2d.drawImage(fanta, x, y,null);
 
+    }
+
+    public void imagenProductos(ArrayList<JLabel> labels, Deposito dep, int pos_x, int pos_y){
+
+        // Agregar cada label al array
+        for(int i = 0;i < 4;i++){
+            if(i <= dep.getSize()){
+                labels.add(new JLabel(new ImageIcon(fanta)));
+            }
+        }
+        for (JLabel j : labels){
+            j.setBounds(pos_x, pos_y, 160, 120);
+            panel_productos.add(j);
+            pos_x += 5;
+        }
     }
 
 

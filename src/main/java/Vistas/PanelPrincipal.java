@@ -16,7 +16,7 @@ public class PanelPrincipal extends JPanel {
     public PanelPrincipal(){
 
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(777,1023));
+        this.setPreferredSize(new Dimension(750,900));
         exp = new PanelExpendedor();
         com = new PanelComprador(exp);
         this.add(com, BorderLayout.EAST);

@@ -10,8 +10,8 @@ public class Ventana extends JFrame {
         panelPrincipal = new PanelPrincipal();
         this.setVisible(true);
         this.setTitle("ExpendedorGUI");
-        this.setResizable(true);
-        this.setSize(777, 1023);
+        this.setResizable(false);
+        this.setSize(750, 900);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.black);
 
