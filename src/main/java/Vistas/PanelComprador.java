@@ -61,7 +61,7 @@ public class PanelComprador extends JPanel implements ActionListener {
         panel_monedas.add(moneda1000);
         panel_monedas.add(confirmar_moneda); */
 
-        panel_expendedor.panel_botones.add(Box.createVerticalStrut(70));
+        panel_expendedor.panel_botones.add(Box.createVerticalStrut(55));
         panel_expendedor.panel_botones.add(moneda100);
         panel_expendedor.panel_botones.add(moneda500);
         panel_expendedor.panel_botones.add(moneda1000);

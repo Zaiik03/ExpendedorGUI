@@ -23,7 +23,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JButton boton_CocaCola;
     private JButton boton_Snickers;
     private JButton boton_Super8;
-    private JButton boton_reset;
+    private JButton boton_rellenar;
     public JPanel panel_botones;
 
     // Prueba
@@ -41,19 +41,18 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     BufferedImage bg;
 
     private ArrayList<JLabel> labels_fanta;
-    private JLabel label_fanta;
-    private ArrayList<JLabel> label_cocacola;
-    private ArrayList<JLabel> label_sprite;
-    private JLabel label_snickers;
-    private JLabel label_super8;
+    private ArrayList<JLabel> labels_cocacola;
+    private ArrayList<JLabel> labels_sprite;
+    private ArrayList<JLabel> labels_snickers;
+    private ArrayList<JLabel> labels_super8;
     private JPanel panel_productos;
 
     /* PRUEBA ANIMACIONES */
-    int x;
-    int y;
     int velocidadX = 5;
     int velocidadY = 5;
-
+    Timer timer_compra;
+    int pos_baseX;
+    boolean producto_borrado = false;
 
 
     public PanelExpendedor(){
@@ -82,39 +81,51 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_botones.setLayout(new BoxLayout(panel_botones, BoxLayout.Y_AXIS));
         panel_botones.setOpaque(false);
         panel_botones.setPreferredSize(new Dimension(190,0));
-
+        // ---------- TABLERO ---------------
+        JLabel label_precios = new JLabel("Precio: ");
+        panel_botones.add(label_precios);
 
 
         panel_botones.add(Box.createVerticalStrut(60));
         boton_Fanta = new JButton("Fanta");
+        boton_Fanta.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Fanta.setFocusable(false);
+        boton_Fanta.setBackground(Color.WHITE);
         boton_Fanta.addActionListener(this);
         panel_botones.add(boton_Fanta);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Sprite = new JButton("Sprite");
+        boton_Sprite.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Sprite.setFocusable(false);
+        boton_Sprite.setBackground(Color.WHITE);
         boton_Sprite.addActionListener(this);
         panel_botones.add(boton_Sprite);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_CocaCola = new JButton("CocaCola");
+        boton_CocaCola.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_CocaCola.setFocusable(false);
+        boton_CocaCola.setBackground(Color.WHITE);
         boton_CocaCola.addActionListener(this);
         panel_botones.add(boton_CocaCola);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Snickers = new JButton("Snickers");
+        boton_Snickers.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Snickers.setFocusable(false);
+        boton_Snickers.setBackground(Color.WHITE);
         boton_Snickers.addActionListener(this);
         panel_botones.add(boton_Snickers);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Super8 = new JButton("Super8");
+        boton_Super8.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Super8.setFocusable(false);
+        boton_Super8.setBackground(Color.WHITE);
         boton_Super8.addActionListener(this);
         panel_botones.add(boton_Super8);
-        panel_botones.add(Box.createVerticalStrut(100));
+        panel_botones.add(Box.createVerticalStrut(50));
 
         boton_comprar = new JButton("Comprar");
         boton_comprar.setFocusable(false);
@@ -130,10 +141,11 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_botones.add(boton_recoger);
         panel_botones.add(Box.createVerticalStrut(10));
 
-        boton_reset = new JButton("Rellenar");
-        boton_reset.setFocusable(false);
-        boton_reset.addActionListener(this);
-        panel_botones.add(boton_reset);
+        boton_rellenar = new JButton("Rellenar");
+        boton_rellenar.setFocusable(false);
+        boton_rellenar.setToolTipText("Presione este botón para rellenar los depósitos de cada producto");
+        boton_rellenar.addActionListener(this);
+        panel_botones.add(boton_rellenar);
         panel_botones.add(Box.createVerticalStrut(10));
 
         // -------------------------- CODIGO PRODUCTOS --------------------------
@@ -149,7 +161,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
 
         panel_productos = new JPanel();
-
         Border borde1 = BorderFactory.createLineBorder(Color.GREEN, 10);
         panel_productos.setBorder(borde1);
 
@@ -158,38 +169,21 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_productos.setLayout(null);
 
         //  ------------ Label de las imagenes ------------
-        label_cocacola = new JLabel(new ImageIcon(cocacola));
-        label_sprite = new JLabel(new ImageIcon(sprite));
-        label_snickers = new JLabel(new ImageIcon(snickers));
-        label_super8 = new JLabel(new ImageIcon(super8));
-
         labels_fanta = new ArrayList<JLabel>();
         labels_cocacola = new ArrayList<JLabel>();
         labels_sprite = new ArrayList<JLabel>();
         labels_snickers = new ArrayList<JLabel>();
         labels_super8 = new ArrayList<JLabel>();
 
-        imagenProductos(labels_fanta, expendedor.fanta, 73, 195);
-        imagenProductos(labels_cocacola, expendedor.fanta, 73, 195);
-        imagenProductos(labels_sprite, expendedor.fanta, 73, 195);
-        imagenProductos(labels_snickers, expendedor.fanta, 73, 195);
-        imagenProductos(labels_super8, expendedor.fanta, 73, 195);
-
-
-
-
-        label_cocacola.setBounds(267, 195, 160, 120);
-        label_sprite.setBounds(70, 400, 160,120);
-        label_snickers.setBounds(100,40,120,90);
-        label_super8.setBounds(288, 40, 120, 90);
+        imagenProductos(fanta, labels_fanta, expendedor.fanta);
+        imagenProductos(cocacola, labels_cocacola, expendedor.coca);
+        imagenProductos(sprite, labels_sprite, expendedor.sprite);
+        imagenProductos(snickers, labels_snickers, expendedor.snickers);
+        imagenProductos(super8, labels_super8, expendedor.super8);
 
 
         /* INTENTO DE ANIMACIONES */
-        Timer timer_fanta = new Timer(100,this);
-        timer_fanta.start();
-        x = label_cocacola.getX();
-        y = label_cocacola.getY();
-
+        timer_compra = new Timer(100,this);
 
     }
 
@@ -226,6 +220,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 boton_Super8.setEnabled(false);
             }
         } else if(e.getSource() == boton_recoger) {
+            producto_borrado = false;
             boton_comprar.setEnabled(false);
             if (!expendedor.coca.checkSize()) {
                 boton_CocaCola.setEnabled(true);
@@ -258,22 +253,28 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             boton_CocaCola.setEnabled(false);
             boton_Snickers.setEnabled(false);
             boton_Super8.setEnabled(false);
-        } else if(e.getSource() == boton_reset){
-            expendedor = new Expendedor(2);
+        } else if(e.getSource() == boton_rellenar){
+            expendedor = new Expendedor(5);
+            imagenProductos(fanta, labels_fanta, expendedor.fanta);
+            imagenProductos(cocacola, labels_cocacola, expendedor.coca);
+            imagenProductos(sprite, labels_sprite, expendedor.sprite);
+            imagenProductos(snickers, labels_snickers, expendedor.snickers);
+            imagenProductos(super8, labels_super8, expendedor.super8);
             boton_Super8.setEnabled(true);
             boton_Fanta.setEnabled(true);
             boton_Sprite.setEnabled(true);
             boton_Snickers.setEnabled(true);
             boton_CocaCola.setEnabled(true);
+            repaint();
         }
 
         /* INTENTO ANIMACION */
 
-        if(x <= 500){
-            x += velocidadX;
-        } else if(x > 500){
-            y += velocidadY;
-        }
+//        if(x <= 500){
+//            x += velocidadX;
+//        } else if(x > 500){
+//            y += velocidadY;
+//        }
 
 
 
@@ -283,6 +284,35 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     public void comprasComprador(int producto){
         try{
             c =  new Comprador(moneda, producto, expendedor);
+            producto_borrado = true;
+            if (seleccion == Expendedor.FANTA){
+                imagenProductos(fanta, labels_fanta, expendedor.fanta);
+
+                int dep_size = expendedor.fanta.getSize();
+                pos_baseX = 63 + (dep_size * 10) + 10;
+                repaint();
+            } else if(seleccion == Expendedor.COCA){
+                imagenProductos(cocacola, labels_cocacola, expendedor.coca);
+                int dep_size = expendedor.coca.getSize();
+                pos_baseX = 305 + (dep_size * 10) + 10;
+                repaint();
+            } else if(seleccion == Expendedor.SPRITE){
+                imagenProductos(sprite, labels_sprite, expendedor.sprite);
+                int dep_size = expendedor.sprite.getSize();
+                pos_baseX = 104 + (dep_size * 10) + 10;
+                repaint();
+            } else if(seleccion == Expendedor.SNICKERS){
+                imagenProductos(snickers, labels_snickers, expendedor.snickers);
+                int dep_size = expendedor.snickers.getSize();
+                pos_baseX = 67 + (dep_size * 10) + 10;
+                repaint();
+            } else if(seleccion == Expendedor.SUPER8){
+                imagenProductos(super8, labels_super8, expendedor.super8);
+                int dep_size = expendedor.super8.getSize();
+                pos_baseX = 275 + (dep_size * 10) + 10;
+                repaint();
+            }
+            repaint();
         } catch (PagoIncorrectoException a){
             System.out.println("Error de tipo pago: " + a.getMessage());
         } catch (PagoInsuficienteException a){
@@ -291,12 +321,15 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
         }
 
+
     }
 
+    /**
+     * Metodo paintComponent
+     * @param g
+     */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
-
 
         Graphics2D g2d = (Graphics2D) g;
         if(bg != null){
@@ -304,25 +337,79 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             g2d.drawImage(escalada, 0,0,this);
         }
 
-        // g2d.drawImage(fanta, x, y,null);
-
-    }
-
-    public void imagenProductos(ArrayList<JLabel> labels, Deposito dep, int pos_x, int pos_y){
-
-        // Agregar cada label al array
-        for(int i = 0;i < 4;i++){
-            if(i <= dep.getSize()){
-                labels.add(new JLabel(new ImageIcon(fanta)));
-            }
-        }
-        for (JLabel j : labels){
-            j.setBounds(pos_x, pos_y, 160, 120);
+        int i = 0;
+        for(JLabel j: labels_fanta){
+            i += 10;
+            g2d.drawImage(fanta, 63+i, 205, null);
+            // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
-            pos_x += 5;
+        }
+
+        i = 0;
+        for(JLabel j: labels_cocacola){
+            i += 10;
+            g2d.drawImage(cocacola, 305+i, 405, null);
+            // j.setBounds(50+i,185, 160,120);
+            panel_productos.add(j);
+        }
+
+        i = 0;
+        for(JLabel j: labels_sprite){
+            i += 10;
+            g2d.drawImage(sprite, 104+i, 405, null);
+            // j.setBounds(50+i,185, 160,120);
+            panel_productos.add(j);
+        }
+
+        i = 0;
+        for(JLabel j: labels_snickers){
+            i += 10;
+            g2d.drawImage(snickers, 67+i, 10, null);
+            // j.setBounds(50+i,185, 160,120);
+            panel_productos.add(j);
+        }
+
+        i = 0;
+        for(JLabel j: labels_super8){
+            i += 10;
+            g2d.drawImage(super8, 275+i, 35, null);
+            // j.setBounds(50+i,185, 160,120);
+            panel_productos.add(j);
+        }
+
+
+        if (producto_borrado && seleccion == Expendedor.FANTA){
+            g2d.drawImage(fanta, pos_baseX, 205, null);
+
+
+
+        } else if(producto_borrado && seleccion == Expendedor.COCA){
+            g2d.drawImage(cocacola, pos_baseX, 405, null);
+        } else if(producto_borrado && seleccion == Expendedor.SPRITE){
+            g2d.drawImage(sprite, pos_baseX, 405, null);
+        } else if(producto_borrado && seleccion == Expendedor.SNICKERS){
+            g2d.drawImage(snickers, pos_baseX, 10, null);
+        } else if(producto_borrado && seleccion == Expendedor.SUPER8){
+            g2d.drawImage(super8, pos_baseX, 35, null);
         }
     }
 
+    /**
+     * Metodo imagenProductos, actualiza los productos en stock
+     * @param imagen Imagen
+     * @param labels arraylist con las imagenes
+     * @param dep Deposito con los productos en stock
+     */
+    public void imagenProductos(Image imagen, ArrayList<JLabel> labels, Deposito dep){
+        labels.clear(); // Para evitar colocar más productos de los necesarios
+        System.out.println(dep.getSize());
+        // Agregar cada label al array
+        for(int i = 0;i < dep.getSize();i++){
+            labels.add(new JLabel(new ImageIcon(imagen)));
+        }
+    }
 
+    public void animacion_comprar(){
 
+    }
 }
