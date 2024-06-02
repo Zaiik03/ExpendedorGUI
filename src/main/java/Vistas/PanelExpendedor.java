@@ -45,6 +45,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private ArrayList<JLabel> labels_sprite;
     private ArrayList<JLabel> labels_snickers;
     private ArrayList<JLabel> labels_super8;
+    private JLabel label_precios;
     private JPanel panel_productos;
     private JLabel label_borrado = null;
 
@@ -81,11 +82,19 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         panel_botones.setOpaque(false);
         panel_botones.setPreferredSize(new Dimension(190,0));
         // ---------- TABLERO ---------------
-        JLabel label_precios = new JLabel("Precio: ");
+        panel_botones.add(Box.createVerticalStrut(30));
+        Font fuente = new Font("monospace", Font.PLAIN, 18);
+        label_precios = new JLabel("");
+        label_precios.setOpaque(true);
+        label_precios.setFont(fuente);
+        label_precios.setBackground(new Color(0x0000));
+        label_precios.setForeground(Color.CYAN);
+        label_precios.setPreferredSize(new Dimension(200, 60));
+        label_precio_act(label_precios, "Precio:       ");
         panel_botones.add(label_precios);
 
 
-        panel_botones.add(Box.createVerticalStrut(60));
+        panel_botones.add(Box.createVerticalStrut(30));
         boton_Fanta = new JButton("Fanta");
         boton_Fanta.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Fanta.setFocusable(false);
@@ -124,7 +133,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Super8.setBackground(Color.WHITE);
         boton_Super8.addActionListener(this);
         panel_botones.add(boton_Super8);
-        panel_botones.add(Box.createVerticalStrut(50));
+        panel_botones.add(Box.createVerticalStrut(35));
 
         boton_comprar = new JButton("Comprar");
         boton_comprar.setFocusable(false);
@@ -188,35 +197,46 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == boton_Fanta) {
+            // Label con el precio
+            label_precio_act(label_precios, "Precio: " + Precios.FANTA.getPrecio());
             seleccion = Expendedor.FANTA;
             boton_comprar.setEnabled(true);
             if(expendedor.fanta.checkSize()){
                 boton_Fanta.setEnabled(false);
             }
+            repaint();
         } else if(e.getSource() == boton_Sprite){
+            label_precio_act(label_precios, "Precio: " + Precios.SPRITE.getPrecio());
             seleccion = Expendedor.SPRITE;
             boton_comprar.setEnabled(true);
             if(expendedor.sprite.checkSize()){
                 boton_Sprite.setEnabled(false);
             }
+            repaint();
         } else if(e.getSource() == boton_CocaCola){
+            label_precio_act(label_precios, "Precio: " + Precios.COCA.getPrecio());
             seleccion = Expendedor.COCA;
             boton_comprar.setEnabled(true);
             if(expendedor.coca.checkSize()){
                 boton_CocaCola.setEnabled(false);
             }
+            repaint();
         } else if(e.getSource() == boton_Snickers){
+            label_precio_act(label_precios, "Precio: " + Precios.SNICKERS.getPrecio());
             seleccion = Expendedor.SNICKERS;
             boton_comprar.setEnabled(true);
             if(expendedor.snickers.checkSize()){
                 boton_Snickers.setEnabled(false);
             }
+            repaint();
         } else if(e.getSource() == boton_Super8){
+            label_precio_act(label_precios, "Precio: " + Precios.SUPER8.getPrecio());
             seleccion = Expendedor.SUPER8;
             boton_comprar.setEnabled(true);
             if(expendedor.super8.checkSize()){
                 boton_Super8.setEnabled(false);
             }
+            repaint();
         } else if(e.getSource() == boton_recoger) {
             producto_borrado = false;
             boton_comprar.setEnabled(false);
@@ -243,6 +263,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             seleccion = 0;
             boton_recoger.setEnabled(false);
         } else if(e.getSource() == boton_comprar){
+            label_precio_act(label_precios, "Precio:       ");
             boton_recoger.setEnabled(true);
             comprasComprador(seleccion);
             boton_comprar.setEnabled(false);
@@ -251,6 +272,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             boton_CocaCola.setEnabled(false);
             boton_Snickers.setEnabled(false);
             boton_Super8.setEnabled(false);
+            repaint();
         } else if(e.getSource() == boton_rellenar){
             expendedor = new Expendedor(5);
             imagenProductos(fanta, labels_fanta, expendedor.fanta);
@@ -322,8 +344,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 }
             }
         }
-        /* INTENTO ANIMACION */
-
         repaint();
     }
 
@@ -478,5 +498,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         for(int i = 0;i < dep.getSize();i++){
             labels.add(new JLabel(new ImageIcon(imagen)));
         }
+    }
+
+    public void label_precio_act(JLabel label, String texto){
+        label.setText(texto);
     }
 }
