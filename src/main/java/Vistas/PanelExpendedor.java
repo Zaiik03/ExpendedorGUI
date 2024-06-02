@@ -46,12 +46,11 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private ArrayList<JLabel> labels_snickers;
     private ArrayList<JLabel> labels_super8;
     private JPanel panel_productos;
+    private JLabel label_borrado = null;
 
     /* PRUEBA ANIMACIONES */
-    int velocidadX = 5;
-    int velocidadY = 5;
-    Timer timer_compra;
-    int pos_baseX;
+    int velocidadX = 3, velocidadY = 3, pos_baseX, pos_baseY;;
+    Timer timer_fanta, timer_cocacola, timer_sprite, timer_snickers, timer_super8;
     boolean producto_borrado = false;
 
 
@@ -69,7 +68,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         }
         // this.setOpaque(false);
 
-        expendedor = new Expendedor(3);
+        expendedor = new Expendedor(1);
 
         this.setPreferredSize(new Dimension(777,1023));
 
@@ -183,8 +182,11 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
 
         /* INTENTO DE ANIMACIONES */
-        timer_compra = new Timer(100,this);
-
+        timer_fanta = new Timer(50,this);
+        timer_cocacola = new Timer(50,this);
+        timer_sprite = new Timer(50,this);
+        timer_snickers = new Timer(50,this);
+        timer_super8 = new Timer(50,this);
     }
 
     @Override
@@ -266,17 +268,64 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             boton_Snickers.setEnabled(true);
             boton_CocaCola.setEnabled(true);
             repaint();
+        } else if(e.getSource() == timer_fanta){
+            if(pos_baseX <= 180){
+                pos_baseX += velocidadX;
+            } else{
+                if(pos_baseY <= 480) {
+                    pos_baseY += velocidadY;
+                } else {
+                    timer_fanta.stop();
+                    producto_borrado = false;
+                }
+            }
+        } else if(e.getSource() == timer_cocacola){
+            if(pos_baseX >= 180){
+                pos_baseX -= velocidadX;
+            } else{
+                if(pos_baseY <= 480) {
+                    pos_baseY += velocidadY;
+                } else {
+                    timer_cocacola.stop();
+                    producto_borrado = false;
+                }
+            }
+        } else if(e.getSource() == timer_sprite){
+            if(pos_baseX <= 180){
+                pos_baseX += velocidadX;
+            } else{
+                if(pos_baseY <= 480) {
+                    pos_baseY += velocidadY;
+                } else {
+                    timer_sprite.stop();
+                    producto_borrado = false;
+                }
+            }
+        } else if(e.getSource() == timer_snickers){
+            if(pos_baseX <= 180){
+                pos_baseX += velocidadX;
+            } else{
+                if(pos_baseY <= 480) {
+                    pos_baseY += velocidadY;
+                } else {
+                    timer_snickers.stop();
+                    producto_borrado = false;
+                }
+            }
+        } else if(e.getSource() == timer_super8){
+            if(pos_baseX >= 180){
+                pos_baseX -= velocidadX;
+            } else{
+                if(pos_baseY <= 480) {
+                    pos_baseY += velocidadY;
+                } else {
+                    timer_super8.stop();
+                    producto_borrado = false;
+                }
+            }
         }
 
         /* INTENTO ANIMACION */
-
-//        if(x <= 500){
-//            x += velocidadX;
-//        } else if(x > 500){
-//            y += velocidadY;
-//        }
-
-
 
         repaint();
     }
@@ -287,29 +336,33 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             producto_borrado = true;
             if (seleccion == Expendedor.FANTA){
                 imagenProductos(fanta, labels_fanta, expendedor.fanta);
-
                 int dep_size = expendedor.fanta.getSize();
                 pos_baseX = 63 + (dep_size * 10) + 10;
+                pos_baseY = 195;
                 repaint();
             } else if(seleccion == Expendedor.COCA){
                 imagenProductos(cocacola, labels_cocacola, expendedor.coca);
                 int dep_size = expendedor.coca.getSize();
-                pos_baseX = 305 + (dep_size * 10) + 10;
+                pos_baseX = 285 + (dep_size * 10) + 10;
+                pos_baseY = 405;
                 repaint();
             } else if(seleccion == Expendedor.SPRITE){
                 imagenProductos(sprite, labels_sprite, expendedor.sprite);
                 int dep_size = expendedor.sprite.getSize();
-                pos_baseX = 104 + (dep_size * 10) + 10;
+                pos_baseX = 60 + (dep_size * 10) + 10;
+                pos_baseY = 405;
                 repaint();
             } else if(seleccion == Expendedor.SNICKERS){
                 imagenProductos(snickers, labels_snickers, expendedor.snickers);
                 int dep_size = expendedor.snickers.getSize();
                 pos_baseX = 67 + (dep_size * 10) + 10;
+                pos_baseY = 10;
                 repaint();
             } else if(seleccion == Expendedor.SUPER8){
                 imagenProductos(super8, labels_super8, expendedor.super8);
                 int dep_size = expendedor.super8.getSize();
                 pos_baseX = 275 + (dep_size * 10) + 10;
+                pos_baseY = 25;
                 repaint();
             }
             repaint();
@@ -332,6 +385,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
+        panel_productos.removeAll();
+
         if(bg != null){
             Image escalada = bg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
             g2d.drawImage(escalada, 0,0,this);
@@ -340,7 +395,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         int i = 0;
         for(JLabel j: labels_fanta){
             i += 10;
-            g2d.drawImage(fanta, 63+i, 205, null);
+            g2d.drawImage(fanta, 63+i, 215, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -348,7 +403,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_cocacola){
             i += 10;
-            g2d.drawImage(cocacola, 305+i, 405, null);
+            g2d.drawImage(cocacola, 305+i, 425, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -356,7 +411,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_sprite){
             i += 10;
-            g2d.drawImage(sprite, 104+i, 405, null);
+            g2d.drawImage(sprite, 104+i, 425, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -364,7 +419,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_snickers){
             i += 10;
-            g2d.drawImage(snickers, 67+i, 10, null);
+            g2d.drawImage(snickers, 67+i, 20, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -372,26 +427,45 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_super8){
             i += 10;
-            g2d.drawImage(super8, 275+i, 35, null);
+            g2d.drawImage(super8, 275+i, 45, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
 
-
         if (producto_borrado && seleccion == Expendedor.FANTA){
-            g2d.drawImage(fanta, pos_baseX, 205, null);
-
-
-
+            label_borrado = new JLabel(new ImageIcon(fanta));
+            // g2d.drawImage(fanta, pos_baseX, 205, null);
+            label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
+            panel_productos.add(label_borrado);
+            timer_fanta.start();
         } else if(producto_borrado && seleccion == Expendedor.COCA){
-            g2d.drawImage(cocacola, pos_baseX, 405, null);
+            label_borrado = new JLabel(new ImageIcon(cocacola));
+            // g2d.drawImage(fanta, pos_baseX, 205, null);
+            label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
+            panel_productos.add(label_borrado);
+            timer_cocacola.start();
         } else if(producto_borrado && seleccion == Expendedor.SPRITE){
-            g2d.drawImage(sprite, pos_baseX, 405, null);
+            label_borrado = new JLabel(new ImageIcon(sprite));
+            // g2d.drawImage(fanta, pos_baseX, 205, null);
+            label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
+            panel_productos.add(label_borrado);
+            timer_sprite.start();
         } else if(producto_borrado && seleccion == Expendedor.SNICKERS){
-            g2d.drawImage(snickers, pos_baseX, 10, null);
+            label_borrado = new JLabel(new ImageIcon(snickers));
+            // g2d.drawImage(fanta, pos_baseX, 205, null);
+            label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
+            panel_productos.add(label_borrado);
+            timer_snickers.start();
         } else if(producto_borrado && seleccion == Expendedor.SUPER8){
-            g2d.drawImage(super8, pos_baseX, 35, null);
+            label_borrado = new JLabel(new ImageIcon(super8));
+            // g2d.drawImage(fanta, pos_baseX, 205, null);
+            label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
+            panel_productos.add(label_borrado);
+            timer_super8.start();
         }
+
+        panel_productos.repaint();
+
     }
 
     /**
@@ -407,9 +481,5 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         for(int i = 0;i < dep.getSize();i++){
             labels.add(new JLabel(new ImageIcon(imagen)));
         }
-    }
-
-    public void animacion_comprar(){
-
     }
 }
