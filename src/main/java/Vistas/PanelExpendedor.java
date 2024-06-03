@@ -50,7 +50,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JLabel label_borrado = null;
 
     /* PRUEBA ANIMACIONES */
-    int velocidadX = 3, velocidadY = 3, pos_baseX, pos_baseY;;
+    int velocidadX = 4, velocidadY = 8, pos_baseX, pos_baseY;;
     Timer timer_compra;
     boolean producto_borrado = false;
 
@@ -74,8 +74,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(777,1023));
 
         panel_botones = new JPanel();
-        Border borde = BorderFactory.createLineBorder(Color.green, 10);
-        panel_botones.setBorder(borde);
+        // Border borde = BorderFactory.createLineBorder(Color.green, 10);
+        // panel_botones.setBorder(borde);
 
         this.add(panel_botones, BorderLayout.EAST);
         panel_botones.setLayout(new BoxLayout(panel_botones, BoxLayout.Y_AXIS));
@@ -169,8 +169,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
 
         panel_productos = new JPanel();
-        Border borde1 = BorderFactory.createLineBorder(Color.GREEN, 10);
-        panel_productos.setBorder(borde1);
+        //Border borde1 = BorderFactory.createLineBorder(Color.GREEN, 10);
+        //panel_productos.setBorder(borde1);
 
         this.add(panel_productos, BorderLayout.CENTER);
         panel_productos.setOpaque(false);
@@ -191,7 +191,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
 
         /* INTENTO DE ANIMACIONES */
-        timer_compra = new Timer(50,this);
+        timer_compra = new Timer(30,this);
     }
 
     @Override
