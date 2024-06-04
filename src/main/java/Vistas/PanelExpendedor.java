@@ -26,7 +26,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JButton boton_rellenar;
     public JPanel panel_botones;
 
-    // Prueba
+
     private Expendedor expendedor;
     public Moneda moneda;
     private Comprador c;
@@ -54,7 +54,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     Timer timer_compra;
     boolean producto_borrado = false;
 
-
+    // AudioPlayer
+    MusicPlayer musica_bg;
     public PanelExpendedor(){
         this.setLayout(new BorderLayout());
         try {
@@ -189,6 +190,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         imagenProductos(snickers, labels_snickers, expendedor.snickers);
         imagenProductos(super8, labels_super8, expendedor.super8);
 
+        musica_bg = new MusicPlayer();
+        musica_bg.play("./src/main/java/Vistas/Sonidos/musica_fondo.wav");
+        musica_bg.loop();
 
         /* INTENTO DE ANIMACIONES */
         timer_compra = new Timer(30,this);

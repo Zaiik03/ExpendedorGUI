@@ -1,5 +1,6 @@
 package Vistas;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -8,6 +9,8 @@ import Modelos.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 
 public class PanelComprador extends JPanel implements ActionListener {
@@ -25,11 +28,20 @@ public class PanelComprador extends JPanel implements ActionListener {
     private Timer timer;
 
     Font fontRadioButton = new Font("Arial", Font.PLAIN, 14);
+
+    Image moneda100_img;
+    Image moneda500_img;
+    Image moneda1000_img;
     public PanelComprador(PanelExpendedor panel_expendedorr){
         panel_expendedor = panel_expendedorr;
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(800,100));
+
+        moneda100_img = new ImageIcon("./src/main/java/Vistas/Fotos/moneda 100.png").getImage();
+        moneda500_img = new ImageIcon("./src/main/java/Vistas/Fotos/moneda 500.png").getImage();
+        moneda1000_img = new ImageIcon("./src/main/java/Vistas/Fotos/moneda1000.png").getImage();
+
 
         /* JPanel contenedor_monedas = new JPanel();
         this.add(contenedor_monedas, BorderLayout.EAST);
@@ -39,6 +51,15 @@ public class PanelComprador extends JPanel implements ActionListener {
         moneda100 = new JRadioButton("$100");
         moneda500 = new JRadioButton("$500");
         moneda1000 = new JRadioButton("$1000");
+        moneda100.setIcon(new ImageIcon(moneda100_img));
+        moneda500.setIcon(new ImageIcon(moneda500_img));
+        moneda1000.setIcon(new ImageIcon(moneda1000_img));
+        moneda100.setOpaque(false);
+        moneda500.setOpaque(false);
+        moneda1000.setOpaque(false);
+        moneda100.setForeground(Color.WHITE);
+        moneda500.setForeground(Color.WHITE);
+        moneda1000.setForeground(Color.WHITE);
         moneda100.setFont(fontRadioButton);
         moneda500.setFont(fontRadioButton);
         moneda1000.setFont(fontRadioButton);
