@@ -280,7 +280,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             }
             repaint();
         } else if(e.getSource() == boton_recoger) {
-            actualizarInventario(seleccion);
             producto_borrado = false;
             boton_comprar.setEnabled(false);
             if (!expendedor.coca.checkSize()) {
@@ -395,6 +394,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     public void comprasComprador(int producto){
         try{
             c =  new Comprador(moneda, producto, expendedor);
+            actualizarInventario(seleccion);
             producto_borrado = true;
             if (seleccion == Expendedor.FANTA){
                 imagenProductos(fanta, labels_fanta, expendedor.fanta);
@@ -431,13 +431,17 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         } catch (PagoIncorrectoException a){
             System.out.println("Error de tipo pago: " + a.getMessage());
             JOptionPane.showMessageDialog(null, "Moneda nula, presione Aceptar y luego Recoger", "Error de tipo de pago", JOptionPane.PLAIN_MESSAGE);
-        } catch (PagoInsuficienteException a){
-
+        } catch (PagoInsuficienteException a) {
+            vuelto = c.recogerProducto(expendedor);
+            inventario.panel_inventario.billetera_comprador += vuelto;
+            vuelto = 0;
             System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
             JOptionPane.showMessageDialog(null, "Moneda inferior al precio, presione Aceptar y luego Recoger", "Error de pago", JOptionPane.PLAIN_MESSAGE);
             moneda = null;
         } catch (NoHayProductoException a){
-
+            vuelto = c.recogerProducto(expendedor);
+            inventario.panel_inventario.billetera_comprador += vuelto;
+            vuelto = 0;
             System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
             moneda = null;
         }

@@ -125,7 +125,7 @@ public class PanelComprador extends JPanel implements ActionListener {
 
         JLabel monedero = new JLabel();
         monedero.setIcon(new ImageIcon(monedero_img));
-        monedero.setBounds(65, 50, 128,128);
+        // monedero.setBounds(10, 10, 128,128);
         panel_expendedor.contenedor_monedas.add(monedero);
 
         timer_monedaNull = new Timer(100, null);
@@ -194,7 +194,9 @@ public class PanelComprador extends JPanel implements ActionListener {
         } else if(e.getSource() == inventario){
             panel_expendedor.inventario.activarPanel();
         } else if(e.getSource() == animacion_moneda){
+            if(seleccion_moneda == 100){
 
+            }
         }
     }
 
@@ -203,6 +205,8 @@ public class PanelComprador extends JPanel implements ActionListener {
         Graphics g2d = (Graphics2D) g;
         // DIBUJAR COSO MONEDAS
         // HACER APARECER LABELS CON IMAGEN DE LA MONEDA CORRESPONDIENTE
+        g2d.drawImage(monedero_img,10,10, null);
+
         if(seleccion_moneda == 100){
             label_moneda100 = new JLabel(new ImageIcon(moneda100_img));
             label_moneda100.setBounds(pos_baseX,0,pos_baseY,70);
