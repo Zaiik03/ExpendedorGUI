@@ -24,8 +24,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JButton boton_Snickers;
     private JButton boton_Super8;
     private JButton boton_rellenar;
-    public JPanel panel_botones;
 
+    public JPanel panel_botones;
+    public JPanel panel_monedas;
 
     private Expendedor expendedor;
     public Moneda moneda;
@@ -70,7 +71,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         }
         // this.setOpaque(false);
 
-        expendedor = new Expendedor(1);
+        expendedor = new Expendedor(5);
 
         this.setPreferredSize(new Dimension(777,1023));
 
@@ -99,7 +100,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Fanta = new JButton("Fanta");
         boton_Fanta.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Fanta.setFocusable(false);
-        boton_Fanta.setBackground(Color.WHITE);
+        boton_Fanta.setForeground(Color.WHITE);
+        boton_Fanta.setBackground(new Color(255,128,0));
         boton_Fanta.addActionListener(this);
         panel_botones.add(boton_Fanta);
         panel_botones.add(Box.createVerticalStrut(10));
@@ -107,55 +109,71 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Sprite = new JButton("Sprite");
         boton_Sprite.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Sprite.setFocusable(false);
-        boton_Sprite.setBackground(Color.WHITE);
+        boton_Sprite.setForeground(Color.WHITE);
+        boton_Sprite.setBackground(new Color(51,201,31));
         boton_Sprite.addActionListener(this);
         panel_botones.add(boton_Sprite);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_CocaCola = new JButton("CocaCola");
         boton_CocaCola.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        boton_CocaCola.setForeground(Color.WHITE);
         boton_CocaCola.setFocusable(false);
-        boton_CocaCola.setBackground(Color.WHITE);
+        boton_CocaCola.setBackground(new Color(218,49,20));
         boton_CocaCola.addActionListener(this);
         panel_botones.add(boton_CocaCola);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Snickers = new JButton("Snickers");
         boton_Snickers.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        boton_Snickers.setForeground(Color.WHITE);
         boton_Snickers.setFocusable(false);
-        boton_Snickers.setBackground(Color.WHITE);
+        boton_Snickers.setBackground(new Color(129,85,78));
         boton_Snickers.addActionListener(this);
         panel_botones.add(boton_Snickers);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Super8 = new JButton("Super8");
         boton_Super8.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        boton_Super8.setForeground(Color.WHITE);
         boton_Super8.setFocusable(false);
-        boton_Super8.setBackground(Color.WHITE);
+        boton_Super8.setBackground(new Color(68,49,46));
         boton_Super8.addActionListener(this);
         panel_botones.add(boton_Super8);
         panel_botones.add(Box.createVerticalStrut(35));
 
         boton_comprar = new JButton("Comprar");
+        boton_comprar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_comprar.setFocusable(false);
         boton_comprar.addActionListener(this);
         boton_comprar.setEnabled(false);
         panel_botones.add(boton_comprar);
-        panel_botones.add(Box.createVerticalStrut(10));
+        panel_botones.add(Box.createVerticalStrut(25));
 
         boton_recoger = new JButton("Recoger");
+        boton_recoger.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        boton_recoger.setForeground(Color.WHITE);
+        boton_recoger.setBackground(new Color(40,39,53));
         boton_recoger.setFocusable(false);
         boton_recoger.setEnabled(false);
         boton_recoger.addActionListener(this);
-        panel_botones.add(boton_recoger);
-        panel_botones.add(Box.createVerticalStrut(10));
+        this.add(boton_recoger);
+        boton_recoger.setBounds(120,700, 270, 50);
+
+
 
         boton_rellenar = new JButton("Rellenar");
+        boton_rellenar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_rellenar.setFocusable(false);
         boton_rellenar.setToolTipText("Presione este botón para rellenar los depósitos de cada producto");
         boton_rellenar.addActionListener(this);
         panel_botones.add(boton_rellenar);
         panel_botones.add(Box.createVerticalStrut(10));
+
+        panel_monedas = new JPanel();
+        panel_monedas.setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
+        panel_monedas.setLayout(null);
+
 
         // -------------------------- CODIGO PRODUCTOS --------------------------
         JPanel panel_vacio = new JPanel();
@@ -424,7 +442,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_cocacola){
             i += 10;
-            g2d.drawImage(cocacola, 305+i, 405, null);
+            g2d.drawImage(cocacola, 255+i, 405, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -432,7 +450,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_sprite){
             i += 10;
-            g2d.drawImage(sprite, 104+i, 405, null);
+            g2d.drawImage(sprite, 55+i, 405, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -440,7 +458,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_snickers){
             i += 10;
-            g2d.drawImage(snickers, 67+i, 20, null);
+            g2d.drawImage(snickers, 50+i, 43, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -448,7 +466,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         i = 0;
         for(JLabel j: labels_super8){
             i += 10;
-            g2d.drawImage(super8, 275+i, 45, null);
+            g2d.drawImage(super8, 250+i, 45, null);
             // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
@@ -507,4 +525,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     public void label_precio_act(JLabel label, String texto){
         label.setText(texto);
     }
+
+
 }
