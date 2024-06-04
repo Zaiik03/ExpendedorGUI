@@ -6,6 +6,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JButton boton_rellenar;
 
     public JPanel panel_botones;
-    public JPanel panel_monedas;
+    public JPanel contenedor_monedas;
 
     private Expendedor expendedor;
     public Moneda moneda;
@@ -55,21 +57,28 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     Timer timer_compra;
     boolean producto_borrado = false;
 
+    private int suma_coca = 0;
+    private int suma_sprite = 0;
+    private int suma_fanta = 0;
+    private int suma_snickers = 0;
+    private int suma_super8 = 0;
+
+    public Inventario inventario;
+
     // AudioPlayer
     MusicPlayer musica_bg;
     public PanelExpendedor(){
         this.setLayout(new BorderLayout());
-        try {
-            bg = ImageIO.read(new File("./src/main/java/Vistas/Fotos/expendedor.jpeg"));
-            fanta = new ImageIcon("./src/main/java/Vistas/Fotos/fanta.png").getImage();
-            cocacola = new ImageIcon("./src/main/java/Vistas/Fotos/cocacola.png").getImage();
-            snickers = new ImageIcon("./src/main/java/Vistas/Fotos/snickers.png").getImage();
-            sprite =  new ImageIcon("./src/main/java/Vistas/Fotos/sprite.png").getImage();
-            super8 =  new ImageIcon("./src/main/java/Vistas/Fotos/super8.png").getImage();
-        } catch (IOException e){
-            System.out.println(e);
-        }
+
+        fanta = new ImageIcon("./src/main/java/Vistas/Fotos/fanta.png").getImage();
+        cocacola = new ImageIcon("./src/main/java/Vistas/Fotos/cocacola.png").getImage();
+        snickers = new ImageIcon("./src/main/java/Vistas/Fotos/snickers.png").getImage();
+        sprite =  new ImageIcon("./src/main/java/Vistas/Fotos/sprite.png").getImage();
+        super8 =  new ImageIcon("./src/main/java/Vistas/Fotos/super8.png").getImage();
+
         // this.setOpaque(false);
+
+        inventario = new Inventario(suma_coca, suma_sprite, suma_fanta, suma_snickers, suma_super8);
 
         expendedor = new Expendedor(5);
 
@@ -94,9 +103,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         label_precios.setPreferredSize(new Dimension(200, 60));
         label_precio_act(label_precios, "Precio:       ");
         panel_botones.add(label_precios);
-
-
         panel_botones.add(Box.createVerticalStrut(30));
+
         boton_Fanta = new JButton("Fanta");
         boton_Fanta.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_Fanta.setFocusable(false);
@@ -104,6 +112,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Fanta.setBackground(new Color(255,128,0));
         boton_Fanta.addActionListener(this);
         panel_botones.add(boton_Fanta);
+        listener_mouse(boton_Fanta, 1);
+        panel_botones.add(Box.createVerticalStrut(10));
+
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Sprite = new JButton("Sprite");
@@ -113,6 +124,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Sprite.setBackground(new Color(51,201,31));
         boton_Sprite.addActionListener(this);
         panel_botones.add(boton_Sprite);
+        listener_mouse(boton_Sprite, 2);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_CocaCola = new JButton("CocaCola");
@@ -122,24 +134,27 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_CocaCola.setBackground(new Color(218,49,20));
         boton_CocaCola.addActionListener(this);
         panel_botones.add(boton_CocaCola);
+        listener_mouse(boton_CocaCola, 3);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Snickers = new JButton("Snickers");
         boton_Snickers.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        boton_Snickers.setForeground(Color.WHITE);
+        boton_Snickers.setForeground(new Color(0, 99, 255));
         boton_Snickers.setFocusable(false);
-        boton_Snickers.setBackground(new Color(129,85,78));
+        boton_Snickers.setBackground(new Color(89, 57, 53));
         boton_Snickers.addActionListener(this);
         panel_botones.add(boton_Snickers);
+        listener_mouse(boton_Snickers, 4);
         panel_botones.add(Box.createVerticalStrut(10));
 
         boton_Super8 = new JButton("Super8");
         boton_Super8.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        boton_Super8.setForeground(Color.WHITE);
+        boton_Super8.setForeground(Color.YELLOW);
         boton_Super8.setFocusable(false);
-        boton_Super8.setBackground(new Color(68,49,46));
+        boton_Super8.setBackground(new Color(24, 19, 18));
         boton_Super8.addActionListener(this);
         panel_botones.add(boton_Super8);
+        listener_mouse(boton_Super8, 5);
         panel_botones.add(Box.createVerticalStrut(35));
 
         boton_comprar = new JButton("Comprar");
@@ -161,19 +176,23 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_recoger.setBounds(120,700, 270, 50);
 
 
-
         boton_rellenar = new JButton("Rellenar");
         boton_rellenar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         boton_rellenar.setFocusable(false);
+        boton_rellenar.setBackground(new Color(54, 46, 46));
+        boton_rellenar.setForeground(Color.WHITE);
         boton_rellenar.setToolTipText("Presione este botón para rellenar los depósitos de cada producto");
         boton_rellenar.addActionListener(this);
         panel_botones.add(boton_rellenar);
+        listener_mouse(boton_rellenar, 7);
         panel_botones.add(Box.createVerticalStrut(10));
 
-        panel_monedas = new JPanel();
-        panel_monedas.setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
-        panel_monedas.setLayout(null);
-
+        contenedor_monedas = new JPanel();
+        this.add(contenedor_monedas);
+        contenedor_monedas.setLayout(new FlowLayout());
+        contenedor_monedas.setOpaque(false);
+        contenedor_monedas.setBorder(BorderFactory.createLineBorder(Color.GREEN,5));
+        contenedor_monedas.setBounds(552,521, 175,240);
 
         // -------------------------- CODIGO PRODUCTOS --------------------------
         JPanel panel_vacio = new JPanel();
@@ -260,6 +279,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             }
             repaint();
         } else if(e.getSource() == boton_recoger) {
+            actualizarInventario(seleccion);
             producto_borrado = false;
             boton_comprar.setEnabled(false);
             if (!expendedor.coca.checkSize()) {
@@ -407,10 +427,14 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             repaint();
         } catch (PagoIncorrectoException a){
             System.out.println("Error de tipo pago: " + a.getMessage());
+            JOptionPane.showMessageDialog(null, "Moneda nula, presione Aceptar y luego Recoger", "Error de tipo de pago", JOptionPane.PLAIN_MESSAGE);
         } catch (PagoInsuficienteException a){
             System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
+            JOptionPane.showMessageDialog(null, "Moneda inferior al precio, presione Aceptar y luego Recoger", "Error de pago", JOptionPane.PLAIN_MESSAGE);
+            moneda = null;
         } catch (NoHayProductoException a){
             System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
+            moneda = null;
         }
 
 
@@ -524,6 +548,79 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
     public void label_precio_act(JLabel label, String texto){
         label.setText(texto);
+    }
+
+    public void listener_mouse(JButton boton, int i){
+        boton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+                if(i == 1){
+                    boton.setBackground(new Color(146, 76, 7));
+                } else if(i == 2){
+                    boton.setBackground(new Color(16, 115, 9));
+                } else if(i == 3){
+                    boton.setBackground(new Color(138, 24, 5));
+                } else if(i == 4){
+                    boton.setBackground(new Color(59, 40, 38));
+                } else if(i == 5){
+                    boton.setBackground(new Color(126, 119, 119));
+                } else if(i == 7){
+                    boton.setBackground(new Color(0, 0, 0));
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+                if(i == 1){
+                    boton.setBackground(new Color(255,128,0));
+                } else if(i == 2){
+                    boton.setBackground(new Color(51,201,31));
+                } else if(i == 3){
+                    boton.setBackground(new Color(218,49,20));
+                } else if(i == 4){
+                    boton.setBackground(new Color(89, 57, 53));
+                } else if(i == 5){
+                    boton.setBackground(new Color(24, 19, 18));
+                } else if(i == 7){
+                    boton.setBackground(new Color(54, 46, 46));
+                }
+            }
+        });
+    }
+
+    public void actualizarInventario(int seleccion){
+        switch(seleccion){
+            case 1:
+                inventario.modificar(1);
+                break;
+            case 2:
+                inventario.modificar(2);
+                break;
+            case 3:
+                inventario.modificar(3);
+                break;
+            case 4:
+                inventario.modificar(4);
+                break;
+            case 5:
+                inventario.modificar(5);
+                break;
+        }
     }
 
 
