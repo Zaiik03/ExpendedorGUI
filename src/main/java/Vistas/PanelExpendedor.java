@@ -62,6 +62,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private int suma_fanta = 0;
     private int suma_snickers = 0;
     private int suma_super8 = 0;
+    private int vuelto = 0;
 
     public Inventario inventario;
 
@@ -299,8 +300,10 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 boton_Super8.setEnabled(true);
             }
             if(c != null){
-                c.recogerProducto(expendedor);
+                vuelto = c.recogerProducto(expendedor);
                 moneda = null;
+                inventario.panel_inventario.billetera_comprador += vuelto;
+                vuelto = 0;
             }
             seleccion = 0;
             boton_recoger.setEnabled(false);
@@ -429,10 +432,12 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             System.out.println("Error de tipo pago: " + a.getMessage());
             JOptionPane.showMessageDialog(null, "Moneda nula, presione Aceptar y luego Recoger", "Error de tipo de pago", JOptionPane.PLAIN_MESSAGE);
         } catch (PagoInsuficienteException a){
+
             System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
             JOptionPane.showMessageDialog(null, "Moneda inferior al precio, presione Aceptar y luego Recoger", "Error de pago", JOptionPane.PLAIN_MESSAGE);
             moneda = null;
         } catch (NoHayProductoException a){
+
             System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
             moneda = null;
         }

@@ -4,13 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Inventario extends JFrame {
-    public int billetera;
-
     public Panel_Inventario panel_inventario;
 
     public Inventario(int inv_coca, int inv_sprite, int inv_fanta, int inv_snickers, int inv_super8){
-        billetera = 6000;
-        panel_inventario = new Panel_Inventario(billetera);
+        panel_inventario = new Panel_Inventario(6000);
         panel_inventario.modificarInventario();
         this.add(panel_inventario);
     }

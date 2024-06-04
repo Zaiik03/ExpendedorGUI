@@ -47,7 +47,7 @@ public class Comprador {
         return sonido;
     }
 
-    public void recogerProducto(Expendedor exp){
+    public int recogerProducto(Expendedor exp){
         // Dejarlo en espera
 
         while(true){
@@ -65,8 +65,10 @@ public class Comprador {
         }
 
         System.out.println(this.queConsumiste()+", " + this.cuantoVuelto());
+        int a = vuelto;
         vuelto = 0;
         sonido = "";
         producto = null;
+        return a;
     }
 }

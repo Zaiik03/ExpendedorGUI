@@ -21,6 +21,7 @@ public class Panel_Inventario extends JPanel implements ActionListener {
     private Image super8;
 
     // ----------- Int ---------------
+    public int billetera_comprador;
     public int inv_cocacola = 0;
     public int inv_sprite = 0;
     public int inv_fanta = 0;
@@ -45,6 +46,8 @@ public class Panel_Inventario extends JPanel implements ActionListener {
 
     public Panel_Inventario(int billetera){
         this.setLayout(null);
+
+        billetera_comprador = billetera;
 
 
         // ---------- Instancia Imagenes --------------------
@@ -224,6 +227,7 @@ public class Panel_Inventario extends JPanel implements ActionListener {
     }
 
     public void modificarInventario(){
+        cambiarText(dinero, "Dinero: " + billetera_comprador);
         cambiarText(cuanta_cocacola, "Cantidad: " + inv_cocacola);
         cambiarText(cuanta_sprite, "Cantidad: " + inv_sprite);
         cambiarText(cuanta_fanta, "Cantidad: " + inv_fanta);
