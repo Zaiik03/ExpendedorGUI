@@ -20,15 +20,15 @@ import java.io.IOException;
 public class PanelComprador extends JPanel implements ActionListener {
 
     /**
-     *Boton para moneda de 100
+     *RadioButton para moneda de 100
      */
     public JRadioButton moneda100;
     /**
-     *Boton para moneda de 500
+     *RadioButtonpara moneda de 500
      */
     public JRadioButton moneda500;
     /**
-     *Boton para moneda de 1000
+     *RadioButton para moneda de 1000
      */
     public JRadioButton moneda1000;
     /**
@@ -160,9 +160,6 @@ public class PanelComprador extends JPanel implements ActionListener {
         config_botones(moneda100, moneda100_img);
         config_botones(moneda500, moneda500_img);
         config_botones(moneda1000, moneda1000_img);
-        moneda100.setBorder(BorderFactory.createLineBorder(Color.GREEN, 20));
-        moneda500.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
-        moneda1000.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
 
         inventario = new JButton("Inventario");
         inventario.setFocusable(false);
@@ -180,14 +177,13 @@ public class PanelComprador extends JPanel implements ActionListener {
         panel_monedas = new JPanel();
         panel_monedas.setLayout(null);
         panel_monedas.setOpaque(false);
-        panel_monedas.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
-        panel_monedas.setPreferredSize(new Dimension(175,150));
+        panel_monedas.setPreferredSize(new Dimension(175,220));
         panel_monedas.add(moneda100);
         panel_monedas.add(moneda500);
         panel_monedas.add(moneda1000);
-        moneda100.setBounds(30,0, 70, 70);
-        moneda500.setBounds(100,3, 70, 70);
-        moneda1000.setBounds(65,40, 70, 70);
+        moneda100.setBounds(5,0, 70, 70);
+        moneda500.setBounds(120,0, 70, 70);
+        moneda1000.setBounds(65,45, 70, 70);
         confirmar_moneda = new JButton("Confirmar moneda");
         confirmar_moneda.setFocusable(false);
         confirmar_moneda.addActionListener(this);
@@ -234,7 +230,7 @@ public class PanelComprador extends JPanel implements ActionListener {
                 moneda500.setEnabled(false);
                 moneda1000.setEnabled(false);
 
-                pos_baseX = 30;
+                pos_baseX = 600;
                 pos_baseY = 0;
                 animacion_moneda.start();
                 panel_expendedor.inventario.panel_inventario.billetera_comprador -= 100;
@@ -282,7 +278,10 @@ public class PanelComprador extends JPanel implements ActionListener {
                         pos_baseY += velocidadY;
                     } else {
                         animacion_moneda.stop();
-                        panel_expendedor.contenedor_monedas.remove(label_moneda100);
+                        if(label_moneda100 != null){
+                            panel_expendedor.panel_vacio1.remove(label_moneda100);
+                        }
+
                     }
                 }
             } else if(seleccion_moneda == 500){
@@ -293,7 +292,9 @@ public class PanelComprador extends JPanel implements ActionListener {
                         pos_baseY += velocidadY;
                     } else {
                         animacion_moneda.stop();
-                        panel_expendedor.contenedor_monedas.remove(label_moneda500);
+                        if(label_moneda100 != null){
+                            panel_expendedor.panel_vacio1.remove(label_moneda500);
+                        }
                     }
                 }
             } else if(seleccion_moneda == 1000){
@@ -304,7 +305,9 @@ public class PanelComprador extends JPanel implements ActionListener {
                         pos_baseY += velocidadY;
                     } else {
                         animacion_moneda.stop();
-                        panel_expendedor.contenedor_monedas.remove(label_moneda500);
+                        if(label_moneda100 != null){
+                            panel_expendedor.panel_vacio1.remove(label_moneda1000);
+                        }
                     }
                 }
             }
@@ -322,33 +325,36 @@ public class PanelComprador extends JPanel implements ActionListener {
         // DIBUJAR COSO MONEDAS
         // HACER APARECER LABELS CON IMAGEN DE LA MONEDA CORRESPONDIENTE
 
-        if (panel_expendedor.moneda != null) {
-            if (label_moneda100 != null) {
-                panel_expendedor.contenedor_monedas.remove(label_moneda100);
-            }
-            if (label_moneda500 != null) {
-                panel_expendedor.contenedor_monedas.remove(label_moneda500);
-            }
-            if (label_moneda1000 != null) {
-                panel_expendedor.contenedor_monedas.remove(label_moneda1000);
-            }
-        }
-
-        if (panel_expendedor.moneda != null) {
-            if (panel_expendedor.moneda.getValor() == 100) {
-                label_moneda100 = new JLabel(new ImageIcon(moneda100_img));
-                label_moneda100.setBounds(pos_baseX, pos_baseY, 70, 70);
-                panel_expendedor.contenedor_monedas.add(label_moneda100);
-            } else if (panel_expendedor.moneda.getValor() == 500) {
-                label_moneda500 = new JLabel(new ImageIcon(moneda500_img));
-                label_moneda500.setBounds(100, 3, 70, 70);
-                panel_expendedor.contenedor_monedas.add(label_moneda500);
-            } else if (panel_expendedor.moneda.getValor() == 1000) {
-                label_moneda1000 = new JLabel(new ImageIcon(moneda1000_img));
-                label_moneda1000.setBounds(30, 0, 70, 70);
-                panel_expendedor.contenedor_monedas.add(label_moneda1000);
-            }
-        }
+//        if (panel_expendedor.moneda != null) {
+//            if (label_moneda100 != null) {
+//                panel_expendedor.panel_vacio1.remove(label_moneda100);
+//            }
+//            if (label_moneda500 != null) {
+//                panel_expendedor.panel_vacio1.remove(label_moneda500);
+//            }
+//            if (label_moneda1000 != null) {
+//                panel_expendedor.panel_vacio1.remove(label_moneda1000);
+//            }
+//        }
+//
+//        if (panel_expendedor.moneda != null) {
+//            if (panel_expendedor.moneda.getValor() == 100) {
+//                label_moneda100 = new JLabel(new ImageIcon(moneda100_img));
+//                label_moneda100.setBounds(pos_baseX, pos_baseY, 70, 70);
+//                panel_expendedor.panel_vacio1.add(label_moneda100);
+//
+//            } else if (panel_expendedor.moneda.getValor() == 500) {
+//                label_moneda500 = new JLabel(new ImageIcon(moneda500_img));
+//                label_moneda500.setBounds(100, 3, 70, 70);
+//                panel_expendedor.panel_vacio1.add(label_moneda500);
+//
+//            } else if (panel_expendedor.moneda.getValor() == 1000) {
+//                label_moneda1000 = new JLabel(new ImageIcon(moneda1000_img));
+//                label_moneda1000.setBounds(30, 0, 70, 70);
+//                panel_expendedor.panel_vacio1.add(label_moneda1000);
+//
+//            }
+//        }
     }
 
     /**

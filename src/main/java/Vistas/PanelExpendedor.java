@@ -97,6 +97,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
      * Panell de productos del expendedor
      */
     private JPanel panel_productos;
+
+    public JPanel panel_vacio1;
     /**
      * Expendedor con el cual inicia el codigo
      */
@@ -216,8 +218,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(777,1023));
 
         panel_botones = new JPanel();
-        // Border borde = BorderFactory.createLineBorder(Color.green, 10);
-        // panel_botones.setBorder(borde);
 
         this.add(panel_botones, BorderLayout.EAST);
         panel_botones.setLayout(new BoxLayout(panel_botones, BoxLayout.Y_AXIS));
@@ -323,7 +323,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         this.add(contenedor_monedas);
         contenedor_monedas.setLayout(new FlowLayout());
         contenedor_monedas.setOpaque(false);
-        contenedor_monedas.setBorder(BorderFactory.createLineBorder(Color.GREEN,5));
         contenedor_monedas.setBounds(552,521, 175,220);
 
         // -------------------------- CODIGO PRODUCTOS --------------------------
@@ -332,10 +331,11 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         this.add(panel_vacio, BorderLayout.NORTH);
         panel_vacio.setPreferredSize(new Dimension(0,20));
 
-        JPanel panel_vacio1 = new JPanel();
+        panel_vacio1 = new JPanel();
         panel_vacio1.setOpaque(false);
+        panel_vacio1.setLayout(new FlowLayout());
         this.add(panel_vacio1, BorderLayout.SOUTH);
-        panel_vacio1.setPreferredSize(new Dimension(0,75));
+        panel_vacio1.setPreferredSize(new Dimension(0,260));
 
 
         panel_productos = new JPanel();
@@ -471,7 +471,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 if(pos_baseX <= 180){
                     pos_baseX += velocidadX;
                 } else{
-                    if(pos_baseY <= 480) {
+                    if(pos_baseY <= 560) {
                         pos_baseY += velocidadY;
                     } else {
                         timer_compra.stop();
@@ -482,7 +482,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 if(pos_baseX >= 180){
                     pos_baseX -= velocidadX;
                 } else{
-                    if(pos_baseY <= 480) {
+                    if(pos_baseY <= 560) {
                         pos_baseY += velocidadY;
                     } else {
                         timer_compra.stop();
@@ -493,7 +493,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 if(pos_baseX <= 180){
                     pos_baseX += velocidadX;
                 } else{
-                    if(pos_baseY <= 480) {
+                    if(pos_baseY <= 560) {
                         pos_baseY += velocidadY;
                     } else {
                         timer_compra.stop();
@@ -504,7 +504,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 if(pos_baseX <= 180){
                     pos_baseX += velocidadX;
                 } else{
-                    if(pos_baseY <= 480) {
+                    if(pos_baseY <= 560) {
                         pos_baseY += velocidadY;
                     } else {
                         timer_compra.stop();
@@ -515,7 +515,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 if(pos_baseX >= 180){
                     pos_baseX -= velocidadX;
                 } else{
-                    if(pos_baseY <= 480) {
+                    if(pos_baseY <= 560) {
                         pos_baseY += velocidadY;
                     } else {
                         timer_compra.stop();
@@ -572,10 +572,12 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             System.out.println("Error de tipo pago: " + a.getMessage());
             JOptionPane.showMessageDialog(null, "Moneda nula, presione Aceptar y luego Recoger", "Error de tipo de pago", JOptionPane.PLAIN_MESSAGE);
         } catch (PagoInsuficienteException a) {
-            vuelto = c.recogerProducto(expendedor);
-            inventario.panel_inventario.billetera_comprador += vuelto;
-            vuelto = 0;
-            inventario.panel_inventario.modificarInventario();
+            if(c != null){
+                vuelto = c.recogerProducto(expendedor);
+                inventario.panel_inventario.billetera_comprador += vuelto;
+                vuelto = 0;
+                inventario.panel_inventario.modificarInventario();
+            }
             JOptionPane.showMessageDialog(null, "Moneda inferior al precio, presione Aceptar y luego Recoger", "Error de pago", JOptionPane.PLAIN_MESSAGE);
             moneda = null;
         } catch (NoHayProductoException a){
@@ -585,8 +587,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             inventario.panel_inventario.modificarInventario();
             moneda = null;
         }
-
-
     }
 
     /**
