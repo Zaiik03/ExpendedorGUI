@@ -18,13 +18,11 @@ public class MusicPlayer {
      */
     public void play(String ruta) {
         try {
-            // Obtener un AudioInputStream desde el archivo de audio
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(ruta));
 
-            // Obtener el Clip que reproduce el sonido
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            clip.start(); // Iniciar la reproducción
+            clip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }

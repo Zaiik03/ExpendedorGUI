@@ -44,7 +44,6 @@ public class PanelPrincipal extends JPanel {
             System.out.println(e);
         }
 
-        // this.setBackground(Color.LIGHT_GRAY);
     }
 
     /**

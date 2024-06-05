@@ -26,7 +26,5 @@ public class Ventana extends JFrame {
 
 
         this.add(panelPrincipal);
-        // this.setContentPane(panelPrincipal);
-
     }
 }

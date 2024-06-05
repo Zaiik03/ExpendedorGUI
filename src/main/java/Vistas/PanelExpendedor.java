@@ -99,6 +99,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     private JPanel panel_productos;
 
     public JPanel panel_vacio1;
+
     /**
      * Expendedor con el cual inicia el codigo
      */
@@ -177,11 +178,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
      */
     Image sprite;
     /**
-     * BufferedImage del fondo de pantalla
-     */
-    BufferedImage bg;
-
-    /**
      * Timer para las animaciones
      */
     Timer timer_compra;
@@ -209,7 +205,8 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         sprite =  new ImageIcon("./src/main/java/Vistas/Fotos/sprite.png").getImage();
         super8 =  new ImageIcon("./src/main/java/Vistas/Fotos/super8.png").getImage();
 
-        // this.setOpaque(false);
+        this.setOpaque(false);
+
 
         inventario = new Inventario(suma_coca, suma_sprite, suma_fanta, suma_snickers, suma_super8);
 
@@ -218,7 +215,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(777,1023));
 
         panel_botones = new JPanel();
-
         this.add(panel_botones, BorderLayout.EAST);
         panel_botones.setLayout(new BoxLayout(panel_botones, BoxLayout.Y_AXIS));
         panel_botones.setOpaque(false);
@@ -286,7 +282,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_Super8.addActionListener(this);
         panel_botones.add(boton_Super8);
         listener_mouse(boton_Super8, 5);
-        panel_botones.add(Box.createVerticalStrut(35));
+        panel_botones.add(Box.createVerticalStrut(25));
 
         boton_comprar = new JButton("Comprar");
         boton_comprar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -295,7 +291,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_comprar.setEnabled(false);
         panel_botones.add(boton_comprar);
         panel_botones.add(Box.createVerticalStrut(25));
-        // UIManager.put("moneda100.disabledBackground", Color.BLACK);
 
         boton_recoger = new JButton("Recoger");
         boton_recoger.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -317,7 +312,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_rellenar.addActionListener(this);
         panel_botones.add(boton_rellenar);
         listener_mouse(boton_rellenar, 7);
-        panel_botones.add(Box.createVerticalStrut(10));
+        panel_botones.add(Box.createVerticalStrut(15));
 
         contenedor_monedas = new JPanel();
         this.add(contenedor_monedas);
@@ -333,15 +328,13 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
         panel_vacio1 = new JPanel();
         panel_vacio1.setOpaque(false);
-        panel_vacio1.setLayout(new FlowLayout());
+        panel_vacio1.setLayout(null);
         this.add(panel_vacio1, BorderLayout.SOUTH);
-        panel_vacio1.setPreferredSize(new Dimension(0,260));
+        panel_vacio1.setPreferredSize(new Dimension(0,265));
+
 
 
         panel_productos = new JPanel();
-        //Border borde1 = BorderFactory.createLineBorder(Color.GREEN, 10);
-        //panel_productos.setBorder(borde1);
-
         this.add(panel_productos, BorderLayout.CENTER);
         panel_productos.setOpaque(false);
         panel_productos.setLayout(null);
@@ -363,7 +356,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         musica_bg.play("./src/main/java/Vistas/Sonidos/musica_fondo.wav");
         musica_bg.loop();
 
-        /* INTENTO DE ANIMACIONES */
         timer_compra = new Timer(30,this);
     }
 
@@ -374,7 +366,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == boton_Fanta) {
-            // Label con el precio
             label_precio_act(label_precios, "Precio: " + Precios.FANTA.getPrecio());
             seleccion = Expendedor.FANTA;
             boton_comprar.setEnabled(true);
@@ -600,16 +591,10 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
         panel_productos.removeAll();
 
-        if(bg != null){
-            Image escalada = bg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
-            g2d.drawImage(escalada, 0,0,this);
-        }
-
         int i = 0;
         for(JLabel j: labels_fanta){
             i += 10;
             g2d.drawImage(fanta, 63+i, 205, null);
-            // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
 
@@ -617,7 +602,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         for(JLabel j: labels_cocacola){
             i += 10;
             g2d.drawImage(cocacola, 255+i, 405, null);
-            // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
 
@@ -625,7 +609,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         for(JLabel j: labels_sprite){
             i += 10;
             g2d.drawImage(sprite, 55+i, 405, null);
-            // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
 
@@ -633,7 +616,6 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         for(JLabel j: labels_snickers){
             i += 10;
             g2d.drawImage(snickers, 50+i, 43, null);
-            // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
 
@@ -641,25 +623,21 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         for(JLabel j: labels_super8){
             i += 10;
             g2d.drawImage(super8, 250+i, 45, null);
-            // j.setBounds(50+i,185, 160,120);
             panel_productos.add(j);
         }
 
         if (producto_borrado && seleccion == Expendedor.FANTA){
             label_borrado = new JLabel(new ImageIcon(fanta));
-            // g2d.drawImage(fanta, pos_baseX, 205, null);
             label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
             panel_productos.add(label_borrado);
             timer_compra.start();
         } else if(producto_borrado && seleccion == Expendedor.COCA){
             label_borrado = new JLabel(new ImageIcon(cocacola));
-            // g2d.drawImage(fanta, pos_baseX, 205, null);
             label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
             panel_productos.add(label_borrado);
             timer_compra.start();
         } else if(producto_borrado && seleccion == Expendedor.SPRITE){
             label_borrado = new JLabel(new ImageIcon(sprite));
-            // g2d.drawImage(fanta, pos_baseX, 205, null);
             label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
             panel_productos.add(label_borrado);
             timer_compra.start();
@@ -671,12 +649,12 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             timer_compra.start();
         } else if(producto_borrado && seleccion == Expendedor.SUPER8){
             label_borrado = new JLabel(new ImageIcon(super8));
-            // g2d.drawImage(fanta, pos_baseX, 205, null);
             label_borrado.setBounds(pos_baseX, pos_baseY, 160, 120);
             panel_productos.add(label_borrado);
             timer_compra.start();
         }
 
+        panel_vacio1.repaint();
         panel_productos.repaint();
 
     }
@@ -688,8 +666,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
      * @param dep Deposito con los productos en stock
      */
     public void imagenProductos(Image imagen, ArrayList<JLabel> labels, Deposito dep){
-        labels.clear(); // Para evitar colocar más productos de los necesarios
-        // Agregar cada label al array
+        labels.clear();
         for(int i = 0;i < dep.getSize();i++){
             labels.add(new JLabel(new ImageIcon(imagen)));
         }
