@@ -8,13 +8,27 @@ import java.io.IOError;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Clase PanelPrincipal
+ */
 public class PanelPrincipal extends JPanel {
+    /**
+     * Variable PanelComprador
+     */
     private PanelComprador com;
+    /**
+     * Variable PanelExpendedor
+     */
     private PanelExpendedor exp;
-
+    /**
+     * Variable BufferedImage
+     */
     BufferedImage bg;
-    public PanelPrincipal(){
 
+    /**
+     * Metodo Constructor
+     */
+    public PanelPrincipal(){
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(750,900));
         exp = new PanelExpendedor();
@@ -32,7 +46,11 @@ public class PanelPrincipal extends JPanel {
 
         // this.setBackground(Color.LIGHT_GRAY);
     }
-    
+
+    /**
+     * Metodo paintComponent
+     * @param g the <code>Graphics</code> object to protect
+     */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 

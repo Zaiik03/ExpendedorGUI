@@ -47,6 +47,11 @@ public class Comprador {
         return sonido;
     }
 
+    /**
+     * Metodo recoger elementos, devuelve el sonido
+     * @param exp Expendedor
+     * @return retorna un int con el vuelto
+     */
     public int recogerProducto(Expendedor exp){
         // Dejarlo en espera
 

@@ -15,59 +15,189 @@ import java.util.ArrayList;
 
 import Modelos.*;
 
+/**
+ * Clase Panel Expendedor
+ */
 public class PanelExpendedor extends JPanel implements ActionListener {
 
-    // Botones
+    //  ------------------ Botones -----------------
+    /**
+     * Button boton comprar
+     */
     private JButton boton_comprar;
+    /**
+     * Button boton recoger producto
+     */
     private JButton boton_recoger;
+    /**
+     * Button boton fanta
+     */
     private JButton boton_Fanta;
+    /**
+     * Button boton sprite
+     */
     private JButton boton_Sprite;
+    /**
+     * Button boton cocacola
+     */
     private JButton boton_CocaCola;
+    /**
+     * Button boton snickers
+     */
     private JButton boton_Snickers;
+    /**
+     * Button boton super8
+     */
     private JButton boton_Super8;
+    /**
+     * Button boton rellenar expendedor
+     */
     private JButton boton_rellenar;
 
-    public JPanel panel_botones;
-    public JPanel contenedor_monedas;
-
-    private Expendedor expendedor;
-    public Moneda moneda;
-    private Comprador c;
-    private int seleccion = 0;
-
-    Image fanta;
-    Image cocacola;
-    Image snickers;
-    Image super8;
-    Image sprite;
-
-    BufferedImage bg;
-
+    //  ------------------ Labels -----------------
+    /**
+     * Array Labels fanta
+     */
     private ArrayList<JLabel> labels_fanta;
+    /**
+     * Array Labels cocacola
+     */
     private ArrayList<JLabel> labels_cocacola;
+    /**
+     * Array Labels sprite
+     */
     private ArrayList<JLabel> labels_sprite;
+    /**
+     * Array Labels snickers
+     */
     private ArrayList<JLabel> labels_snickers;
+    /**
+     * Array Labels super8
+     */
     private ArrayList<JLabel> labels_super8;
+    /**
+     * Labels precio
+     */
     private JLabel label_precios;
-    private JPanel panel_productos;
+    /**
+     * Array Labels de los productos borrado para animaciones
+     */
     private JLabel label_borrado = null;
 
-    /* PRUEBA ANIMACIONES */
-    int velocidadX = 4, velocidadY = 8, pos_baseX, pos_baseY;;
-    Timer timer_compra;
-    boolean producto_borrado = false;
-
+    // ----------- Paneles ---------------
+    /**
+     * Panel de botones expendedor
+     */
+    public JPanel panel_botones;
+    /**
+     * Panel de contenedor de monedas
+     */
+    public JPanel contenedor_monedas;
+    /**
+     * Panell de productos del expendedor
+     */
+    private JPanel panel_productos;
+    /**
+     * Expendedor con el cual inicia el codigo
+     */
+    private Expendedor expendedor;
+    /**
+     * Moneda
+     */
+    public Moneda moneda;
+    /**
+     * Comprador para interactuar con el expendedor
+     */
+    private Comprador c;
+    // -------------- Int -------------
+    /**
+     * Int seleccion del producto
+     */
+    private int seleccion = 0;
+    /**
+     * Int suma cocacola
+     */
     private int suma_coca = 0;
+    /**
+     * Int suma sprite
+     */
     private int suma_sprite = 0;
+    /**
+     * Int suma fanta
+     */
     private int suma_fanta = 0;
+    /**
+     * Int suma snickers
+     */
     private int suma_snickers = 0;
+    /**
+     * Int suma super8
+     */
     private int suma_super8 = 0;
+    /**
+     * Int vuelto
+     */
     private int vuelto = 0;
+    /**
+     * Velocidad en X
+     */
+    int velocidadX = 4;
+    /**
+     * Volcidad en Y
+     */
+    int velocidadY = 8;
+    /**
+     * Posicion de los labels en X
+     */
+    int pos_baseX;
+    /**
+     * Posicion de los labels en y
+     */
+    int pos_baseY;
+    /**
+     * Imagen fanta
+     */
+    Image fanta;
+    /**
+     * Imagen cocacola
+     */
+    Image cocacola;
+    /**
+     * Imagen snickers
+     */
+    Image snickers;
+    /**
+     * Imagen super8
+     */
+    Image super8;
+    /**
+     * Imagen sprite
+     */
+    Image sprite;
+    /**
+     * BufferedImage del fondo de pantalla
+     */
+    BufferedImage bg;
 
+    /**
+     * Timer para las animaciones
+     */
+    Timer timer_compra;
+    /**
+     * Boolean para los estados
+     */
+    boolean producto_borrado = false;
+    /**
+     * Inventario para desplegar ventana de inventario
+     */
     public Inventario inventario;
-
-    // AudioPlayer
+    /**
+     * MusicPlayer para la musica de fondo
+     */
     MusicPlayer musica_bg;
+    /**
+     * Metodo Constructor
+     */
     public PanelExpendedor(){
         this.setLayout(new BorderLayout());
 
@@ -165,6 +295,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_comprar.setEnabled(false);
         panel_botones.add(boton_comprar);
         panel_botones.add(Box.createVerticalStrut(25));
+        // UIManager.put("moneda100.disabledBackground", Color.BLACK);
 
         boton_recoger = new JButton("Recoger");
         boton_recoger.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -193,7 +324,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         contenedor_monedas.setLayout(new FlowLayout());
         contenedor_monedas.setOpaque(false);
         contenedor_monedas.setBorder(BorderFactory.createLineBorder(Color.GREEN,5));
-        contenedor_monedas.setBounds(552,521, 175,240);
+        contenedor_monedas.setBounds(552,521, 175,220);
 
         // -------------------------- CODIGO PRODUCTOS --------------------------
         JPanel panel_vacio = new JPanel();
@@ -236,6 +367,10 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         timer_compra = new Timer(30,this);
     }
 
+    /**
+     * Metodo actionPerformed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == boton_Fanta) {
@@ -303,6 +438,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
                 moneda = null;
                 inventario.panel_inventario.billetera_comprador += vuelto;
                 vuelto = 0;
+                inventario.panel_inventario.modificarInventario();
             }
             seleccion = 0;
             boton_recoger.setEnabled(false);
@@ -391,6 +527,10 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         repaint();
     }
 
+    /**
+     * Metodo comprasComprador
+     * @param producto se le ingresa un int con el numero de producto
+     */
     public void comprasComprador(int producto){
         try{
             c =  new Comprador(moneda, producto, expendedor);
@@ -435,14 +575,14 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             vuelto = c.recogerProducto(expendedor);
             inventario.panel_inventario.billetera_comprador += vuelto;
             vuelto = 0;
-            System.out.println("Error de pago: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
+            inventario.panel_inventario.modificarInventario();
             JOptionPane.showMessageDialog(null, "Moneda inferior al precio, presione Aceptar y luego Recoger", "Error de pago", JOptionPane.PLAIN_MESSAGE);
             moneda = null;
         } catch (NoHayProductoException a){
             vuelto = c.recogerProducto(expendedor);
             inventario.panel_inventario.billetera_comprador += vuelto;
             vuelto = 0;
-            System.out.println("Error de inventario: " + a.getMessage() + ". Aqui tiene su dinero: " + moneda.getValor());
+            inventario.panel_inventario.modificarInventario();
             moneda = null;
         }
 
@@ -451,8 +591,9 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
     /**
      * Metodo paintComponent
-     * @param g
+     * @param g the <code>Graphics</code> object to protect
      */
+    @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
@@ -548,17 +689,26 @@ public class PanelExpendedor extends JPanel implements ActionListener {
      */
     public void imagenProductos(Image imagen, ArrayList<JLabel> labels, Deposito dep){
         labels.clear(); // Para evitar colocar más productos de los necesarios
-        System.out.println(dep.getSize());
         // Agregar cada label al array
         for(int i = 0;i < dep.getSize();i++){
             labels.add(new JLabel(new ImageIcon(imagen)));
         }
     }
 
+    /**
+     * Metodo para mostrar los precios de los productos
+     * @param label le ingresamos un label
+     * @param texto texto que tendra el Label
+     */
     public void label_precio_act(JLabel label, String texto){
         label.setText(texto);
     }
 
+    /**
+     * Metodo para manejo de eventos del mouse
+     * @param boton Boton al que se le quiere manejar eventos
+     * @param i valor numerico
+     */
     public void listener_mouse(JButton boton, int i){
         boton.addMouseListener(new MouseListener() {
             @Override
@@ -612,6 +762,10 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         });
     }
 
+    /**
+     * Metodo actualizarInventario
+     * @param seleccion numero del producto a comprar
+     */
     public void actualizarInventario(int seleccion){
         switch(seleccion){
             case 1:

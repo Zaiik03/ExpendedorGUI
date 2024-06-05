@@ -270,6 +270,10 @@ public class Expendedor {
         return monVu.getProducto();
     }
 
+    /**
+     * Metodo para retirar producto del expendedor
+     * @return retorna un producto
+     */
     public Producto getProducto(){
         if(!depUnitarioDulce.checkSize()){
             return depUnitarioDulce.getProducto();

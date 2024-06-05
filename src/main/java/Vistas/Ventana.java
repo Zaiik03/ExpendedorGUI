@@ -3,9 +3,18 @@ package Vistas;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase ventana
+ */
 public class Ventana extends JFrame {
+    /**
+     * Variable privada que se utiliza para hacer un nuevo panel
+     */
     private PanelPrincipal panelPrincipal;
 
+    /**
+     * Constructor de clase Ventana
+     */
     public Ventana(){
         panelPrincipal = new PanelPrincipal();
         this.setVisible(true);

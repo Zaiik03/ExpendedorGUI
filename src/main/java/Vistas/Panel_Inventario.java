@@ -5,45 +5,134 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase Panel Inventario
+ */
 public class Panel_Inventario extends JPanel implements ActionListener {
     // ------------- Botones ---------------
+    /**
+     * Boton cocacola
+     */
     private JButton consumir_cocacola;
+    /**
+     * Boton sprite
+     */
     private JButton consumir_sprite;
+    /**
+     * Boton fanta
+     */
     private JButton consumir_fanta;
+    /**
+     * Boton snickers
+     */
     private JButton consumir_snickers;
+    /**
+     * Boton super8
+     */
     private JButton consumir_super8;
 
     // ----------- Imagenes ---------------
+    /**
+     * Image cocacola
+     */
     private Image coca;
+    /**
+     * Image sprite
+     */
     private Image sprite;
+    /**
+     * Image fanta
+     */
     private Image fanta;
+    /**
+     * Image snickers
+     */
     private Image snickers;
+    /**
+     * Image super8
+     */
     private Image super8;
 
     // ----------- Int ---------------
+    /**
+     * Variable de valor numerico que representa la billetera
+     */
     public int billetera_comprador;
+    /**
+     * Valor inventario cocacola
+     */
     public int inv_cocacola = 0;
+    /**
+     * Valor inventario sprite
+     */
     public int inv_sprite = 0;
+    /**
+     * Valor inventario fanta
+     */
     public int inv_fanta = 0;
+    /**
+     * Valor inventario snickers
+     */
     public int inv_snickers = 0;
+    /**
+     * Valor inventario super8
+     */
     public int inv_super8 = 0;
 
     // ---------- JLabel -----------------
+    /**
+     * Label dinero
+     */
     JLabel dinero;
+    /**
+     * Label fanta
+     */
     JLabel label_fanta;
+    /**
+     * Label cocacola
+     */
     JLabel label_cocacola;
+    /**
+     * Label sprite
+     */
     JLabel label_sprite;
+    /**
+     * Label snickers
+     */
     JLabel label_snickers;
+    /**
+     * Label super8
+     */
     JLabel label_super8;
-
+    /**
+     * Label cuanta fanta
+     */
     JLabel cuanta_fanta;
+    /**
+     * Label cuanta cocacola
+     */
     JLabel cuanta_cocacola;
+    /**
+     * Label cuanta sprite
+     */
     JLabel cuanta_sprite;
+    /**
+     * Label cuanta snickers
+     */
     JLabel cuanta_snickers;
+    /**
+     * Label cuanta super8
+     */
     JLabel cuanta_super8;
-
+    /**
+     * Objeto para reproducir musica
+     */
     MusicPlayer musica_comer;
 
+    /**
+     * Metodo Constructor
+     * @param billetera valor de la billetera inicialmente
+     */
     public Panel_Inventario(int billetera){
         this.setLayout(null);
 
@@ -168,11 +257,19 @@ public class Panel_Inventario extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Matodo paintComponent
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
 
+    /**
+     * Metodo actionPerformed
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         // ------------- Manejo de eventos -------------------
@@ -211,14 +308,31 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         repaint();
     }
 
+    /**
+     * Metodo para escalar imagenes
+     * @param imagen Imagen a escalar
+     * @param ancho nuevo ancho de la imagen
+     * @param alto nuevo alto para la imagen
+     * @return retorna una Imagen escalada
+     */
     public Image escalarImagen(Image imagen, int ancho, int alto){
         return imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
     }
 
+    /**
+     * Metodo para actualizar los Labels
+     * @param label Label a actualizar
+     * @param texto texto nuevo
+     */
     public void cambiarText(JLabel label, String texto){
         label.setText(texto);
     }
 
+    /**
+     * Metodo para editar Labels
+     * @param label Label a editar
+     * @param fuente Fuente para editar los textos
+     */
     public void editorLabel(JLabel label, Font fuente){
         label.setOpaque(true);
         label.setFont(fuente);
@@ -226,6 +340,9 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         label.setPreferredSize(new Dimension(200, 60));
     }
 
+    /**
+     * Metodo para modificar los Labels cuando se compra o se actualizan datos
+     */
     public void modificarInventario(){
         cambiarText(dinero, "Dinero: " + billetera_comprador);
         cambiarText(cuanta_cocacola, "Cantidad: " + inv_cocacola);

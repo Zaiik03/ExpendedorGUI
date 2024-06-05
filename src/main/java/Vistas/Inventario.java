@@ -3,15 +3,32 @@ package Vistas;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase INventario
+ */
 public class Inventario extends JFrame {
+    /**
+     * Variable Inventario
+     */
     public Panel_Inventario panel_inventario;
 
+    /**
+     * Metodo constructor
+     * @param inv_coca cantidad de cocacolas en inventario
+     * @param inv_sprite cantidad de sprite en inventario
+     * @param inv_fanta cantidad de fanta en inventario
+     * @param inv_snickers cantidad de snickers en inventario
+     * @param inv_super8 cantidad de super8 en inventario
+     */
     public Inventario(int inv_coca, int inv_sprite, int inv_fanta, int inv_snickers, int inv_super8){
-        panel_inventario = new Panel_Inventario(6000);
+        panel_inventario = new Panel_Inventario(10000);
         panel_inventario.modificarInventario();
         this.add(panel_inventario);
     }
 
+    /**
+     * Metodo para mostrar la ventana
+     */
     public void activarPanel(){
 
         this.setVisible(true);
@@ -23,6 +40,10 @@ public class Inventario extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * Metodo que modifica los valores en el inventario
+     * @param selection variable que representa que producto se compro
+     */
     public void modificar(int selection){
         switch (selection){
             case 1:
