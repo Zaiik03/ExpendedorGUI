@@ -212,19 +212,25 @@ public class PanelComprador extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == moneda100){
-            if(panel_expendedor.inventario.panel_inventario.billetera_comprador - 100 > 0){
+            if(panel_expendedor.inventario.panel_inventario.billetera_comprador - 100 >= 0){
                 seleccion_moneda = 100;
+            } else {
+                JOptionPane.showMessageDialog(null, "Dinero insuficiente, usted cuenta con " + panel_expendedor.inventario.panel_inventario.billetera_comprador + ". Revise inventario", "Error dinero insuficiente", JOptionPane.PLAIN_MESSAGE);
             }
         } else if(e.getSource() == moneda500){
-            if(panel_expendedor.inventario.panel_inventario.billetera_comprador - 500 > 0){
+            if(panel_expendedor.inventario.panel_inventario.billetera_comprador - 500 >= 0){
                 seleccion_moneda = 500;
+            } else {
+                JOptionPane.showMessageDialog(null, "Dinero insuficiente, usted cuenta con " + panel_expendedor.inventario.panel_inventario.billetera_comprador + ". Revise inventario", "Error dinero insuficiente", JOptionPane.PLAIN_MESSAGE);
             }
         } else if(e.getSource() == moneda1000){
-            if(panel_expendedor.inventario.panel_inventario.billetera_comprador - 1000 > 0){
+            if(panel_expendedor.inventario.panel_inventario.billetera_comprador - 1000 >= 0){
                 seleccion_moneda = 1000;
+            } else {
+                JOptionPane.showMessageDialog(null, "Dinero insuficiente, usted cuenta con " + panel_expendedor.inventario.panel_inventario.billetera_comprador + ". Revise inventario", "Error dinero insuficiente", JOptionPane.PLAIN_MESSAGE);
             }
         } else if(e.getSource() == confirmar_moneda){
-            if(seleccion_moneda == 100){
+            if(seleccion_moneda == 100 && panel_expendedor.inventario.panel_inventario.billetera_comprador - 100 >= 0 ){
                 panel_expendedor.moneda = new Moneda100();
                 moneda100.setEnabled(false);
                 moneda500.setEnabled(false);
@@ -236,7 +242,7 @@ public class PanelComprador extends JPanel implements ActionListener {
                 panel_expendedor.inventario.panel_inventario.billetera_comprador -= 100;
                 panel_expendedor.inventario.panel_inventario.modificarInventario();
                 repaint();
-            } else if(seleccion_moneda == 500){
+            } else if(seleccion_moneda == 500 && panel_expendedor.inventario.panel_inventario.billetera_comprador - 500 >= 0){
                 panel_expendedor.moneda = new Moneda500();
                 moneda100.setEnabled(false);
                 moneda500.setEnabled(false);
@@ -248,7 +254,7 @@ public class PanelComprador extends JPanel implements ActionListener {
                 panel_expendedor.inventario.panel_inventario.billetera_comprador -= 500;
                 panel_expendedor.inventario.panel_inventario.modificarInventario();
                 repaint();
-            } else if(seleccion_moneda == 1000){
+            } else if(seleccion_moneda == 1000 && panel_expendedor.inventario.panel_inventario.billetera_comprador - 1000 >= 0){
                 panel_expendedor.moneda = new Moneda1000();
                 moneda100.setEnabled(false);
                 moneda500.setEnabled(false);

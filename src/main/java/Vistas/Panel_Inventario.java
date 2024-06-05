@@ -206,6 +206,13 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         consumir_sprite.setFont(fuente_boton);
         consumir_snickers.setFont(fuente_boton);
 
+        personalizarBotones(consumir_fanta, "Presione para consumir fanta del inventario");
+        personalizarBotones(consumir_cocacola, "Presione para consumir cocacola del inventario");
+        personalizarBotones(consumir_sprite, "Presione para consumir sprite del inventario");
+        personalizarBotones(consumir_snickers, "Presione para consumir snickers del inventario");
+        personalizarBotones(consumir_super8, "Presione para consumir super8 del inventario");
+
+
         // ----------- Add Button in Panel -------------
         this.add(consumir_fanta);
         this.add(consumir_cocacola);
@@ -350,5 +357,12 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         cambiarText(cuanta_fanta, "Cantidad: " + inv_fanta);
         cambiarText(cuanta_snickers, "Cantidad: " + inv_snickers);
         cambiarText(cuanta_super8, "Cantidad: " + inv_super8);
+    }
+
+    public void personalizarBotones(JButton b, String texto){
+        b.setFocusable(false);
+        b.setBackground(Color.gray);
+        b.setForeground(Color.white);
+        b.setToolTipText(texto);
     }
 }
