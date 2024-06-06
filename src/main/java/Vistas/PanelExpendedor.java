@@ -209,7 +209,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
         inventario = new Inventario();
 
-        expendedor = new Expendedor(5);
+        expendedor = new Expendedor(1);
 
         this.setPreferredSize(new Dimension(777,1023));
 
@@ -529,31 +529,31 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             if (seleccion == Expendedor.FANTA){
                 imagenProductos(fanta, labels_fanta, expendedor.fanta);
                 int dep_size = expendedor.fanta.getSize();
-                pos_baseX = 63 + (dep_size * 10) + 10;
-                pos_baseY = 185;
+                pos_baseX = 49 + (dep_size * 10) + 10;
+                pos_baseY = 189;
                 repaint();
             } else if(seleccion == Expendedor.COCA){
                 imagenProductos(cocacola, labels_cocacola, expendedor.coca);
                 int dep_size = expendedor.coca.getSize();
-                pos_baseX = 255 + (dep_size * 10) + 10;
-                pos_baseY = 385;
+                pos_baseX = 239 + (dep_size * 10) + 10;
+                pos_baseY = 389;
                 repaint();
             } else if(seleccion == Expendedor.SPRITE){
                 imagenProductos(sprite, labels_sprite, expendedor.sprite);
                 int dep_size = expendedor.sprite.getSize();
-                pos_baseX = 60 + (dep_size * 10) + 10;
-                pos_baseY = 385;
+                pos_baseX = 39 + (dep_size * 10) + 10;
+                pos_baseY = 389;
                 repaint();
             } else if(seleccion == Expendedor.SNICKERS){
                 imagenProductos(snickers, labels_snickers, expendedor.snickers);
                 int dep_size = expendedor.snickers.getSize();
-                pos_baseX = 45 + (dep_size * 10) + 10;
-                pos_baseY = 17;
+                pos_baseX = 40 + (dep_size * 10) + 10;
+                pos_baseY = 27;
                 repaint();
             } else if(seleccion == Expendedor.SUPER8){
                 imagenProductos(super8, labels_super8, expendedor.super8);
                 int dep_size = expendedor.super8.getSize();
-                pos_baseX = 258 + (dep_size * 10) + 10;
+                pos_baseX = 234 + (dep_size * 10) + 10;
                 pos_baseY = 29;
                 repaint();
             }
