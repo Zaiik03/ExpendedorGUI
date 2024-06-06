@@ -118,69 +118,49 @@ public class PanelExpendedor extends JPanel implements ActionListener {
      */
     private int seleccion = 0;
     /**
-     * Int suma cocacola
-     */
-    private int suma_coca = 0;
-    /**
-     * Int suma sprite
-     */
-    private int suma_sprite = 0;
-    /**
-     * Int suma fanta
-     */
-    private int suma_fanta = 0;
-    /**
-     * Int suma snickers
-     */
-    private int suma_snickers = 0;
-    /**
-     * Int suma super8
-     */
-    private int suma_super8 = 0;
-    /**
      * Int vuelto
      */
     private int vuelto = 0;
     /**
      * Velocidad en X
      */
-    int velocidadX = 4;
+    private int velocidadX = 4;
     /**
      * Volcidad en Y
      */
-    int velocidadY = 8;
+    private int velocidadY = 8;
     /**
      * Posicion de los labels en X
      */
-    int pos_baseX;
+    private int pos_baseX;
     /**
      * Posicion de los labels en y
      */
-    int pos_baseY;
+    private int pos_baseY;
     /**
      * Imagen fanta
      */
-    Image fanta;
+    private Image fanta;
     /**
      * Imagen cocacola
      */
-    Image cocacola;
+    private Image cocacola;
     /**
      * Imagen snickers
      */
-    Image snickers;
+    private Image snickers;
     /**
      * Imagen super8
      */
-    Image super8;
+    private Image super8;
     /**
      * Imagen sprite
      */
-    Image sprite;
+    private Image sprite;
     /**
      * Timer para las animaciones
      */
-    Timer timer_compra;
+    private Timer timer_compra;
     /**
      * Boolean para los estados
      */
@@ -192,7 +172,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     /**
      * MusicPlayer para la musica de fondo
      */
-    MusicPlayer musica_bg;
+    private MusicPlayer musica_bg;
     /**
      * Metodo Constructor
      */
@@ -432,7 +412,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             }
             seleccion = 0;
             boton_recoger.setEnabled(false);
-            
+
         } else if(e.getSource() == boton_comprar){
             label_precio_act(label_precios, "Precio:       ");
             boton_recoger.setEnabled(true);

@@ -44,17 +44,9 @@ public class PanelComprador extends JPanel implements ActionListener {
      */
     public JPanel panel_monedas;
     /**
-     * Panel para el monedero
-     */
-    public JPanel panel_monedero;
-    /**
      * Valor númerico que nos dira que moneda fue seleccionada
      */
-    int seleccion_moneda = 0;
-    /**
-     *Variable moneda
-     */
-    private Moneda moneda;
+    private int seleccion_moneda = 0;
     /**
      * Variable para crear una panel para el expendedor
      */
@@ -70,65 +62,60 @@ public class PanelComprador extends JPanel implements ActionListener {
     /**
      * Crea un timer para las monedas
      */
-    Font fontRadioButton = new Font("Arial", Font.PLAIN, 14);
-
+    private Font fontRadioButton = new Font("Arial", Font.PLAIN, 14);
     /**
      * Variable Imagen para la moneda de 100
      */
-    Image moneda100_img;
+    private Image moneda100_img;
     /**
      * Variable Imagen para la moneda de 500
      */
-    Image moneda500_img;
+    private Image moneda500_img;
     /**
      * Variable Imagen para la moneda de 1000
      */
-    Image moneda1000_img;
+    private Image moneda1000_img;
     /**
      * Variable Imagen para la moneda de 100 cuando es selccionada
      */
-    Image moneda100_opaca;
+    private Image moneda100_opaca;
     /**
      * Variable Imagen para la moneda de 500 cuando es selccionada
      */
-    Image moneda500_opaca;
+    private Image moneda500_opaca;
     /**
      * Variable Imagen para la moneda de 1000 cuando es selccionada
      */
-    Image moneda1000_opaca;
-    /**
-     * Variable Imagen para el monedero
-     */
-    Image monedero_img;
+    private Image moneda1000_opaca;
     /**
      * Variable MusicPlayer para agregar sonido a las monedas
      */
-    MusicPlayer musica_moneda;
+    private MusicPlayer musica_moneda;
     /**
      * Variables enteras para la velocidad de las animaciones
      */
-    int velocidadX = 4, velocidadY = 8, pos_baseX, pos_baseY;
+    private int velocidadX = 4, velocidadY = 8, pos_baseX, pos_baseY;
     /**
      * Variable JLabel para la moneda de 100
      */
-    JLabel label_moneda100;
+    private JLabel label_moneda100;
     /**
      * Variable JLabel para la moneda de 500
      */
-    JLabel label_moneda500;
+    private JLabel label_moneda500;
     /**
      * Variable JLabel para la moneda de 1000
      */
-    JLabel label_moneda1000;
+    private JLabel label_moneda1000;
 
     /**
      * Validacion para animacion monedas
      */
-    Boolean moneda_destino = false;
+    private Boolean moneda_destino = false;
     /**
      * Sonido de moneda entrando al expendedor
      */
-    MusicPlayer moneda_entrando;
+    private MusicPlayer moneda_entrando;
     /**
      * Metodo PanelComprador
      * @param panel_expendedor para manipular sus propiedades
@@ -151,7 +138,6 @@ public class PanelComprador extends JPanel implements ActionListener {
         moneda100_opaca = new ImageIcon("./src/main/java/Vistas/Fotos/moneda100_opaca.png").getImage();
         moneda500_opaca = new ImageIcon("./src/main/java/Vistas/Fotos/moneda500_opaca.png").getImage();
         moneda1000_opaca = new ImageIcon("./src/main/java/Vistas/Fotos/moneda1000_opaca.png").getImage();
-        monedero_img = new ImageIcon("./src/main/java/Vistas/Fotos/monedero.png").getImage();
 
         moneda100 = new JRadioButton();
         moneda500 = new JRadioButton();

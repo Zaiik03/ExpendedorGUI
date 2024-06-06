@@ -68,8 +68,6 @@ public class Comprador {
         } else{
             sonido = producto.getConsumir();
         }
-
-        System.out.println(this.queConsumiste()+", " + this.cuantoVuelto());
         int a = vuelto;
         vuelto = 0;
         sonido = "";
