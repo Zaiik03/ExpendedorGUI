@@ -207,8 +207,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
         this.setOpaque(false);
 
-
-        inventario = new Inventario(suma_coca, suma_sprite, suma_fanta, suma_snickers, suma_super8);
+        inventario = new Inventario();
 
         expendedor = new Expendedor(5);
 
@@ -230,7 +229,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         label_precios.setPreferredSize(new Dimension(200, 60));
         label_precio_act(label_precios, "Precio:       ");
         panel_botones.add(label_precios);
-        panel_botones.add(Box.createVerticalStrut(30));
+        panel_botones.add(Box.createVerticalStrut(20));
 
         boton_Fanta = new JButton("Fanta");
         boton_Fanta.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -312,7 +311,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
         boton_rellenar.addActionListener(this);
         panel_botones.add(boton_rellenar);
         listener_mouse(boton_rellenar, 7);
-        panel_botones.add(Box.createVerticalStrut(15));
+        panel_botones.add(Box.createVerticalStrut(5));
 
         contenedor_monedas = new JPanel();
         this.add(contenedor_monedas);

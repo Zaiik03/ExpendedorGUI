@@ -138,7 +138,6 @@ public class Panel_Inventario extends JPanel implements ActionListener {
 
         billetera_comprador = billetera;
 
-
         // ---------- Instancia Imagenes --------------------
         fanta = new ImageIcon("./src/main/java/Vistas/Fotos/fanta.png").getImage();
         coca = new ImageIcon("./src/main/java/Vistas/Fotos/cocacola.png").getImage();
@@ -164,9 +163,11 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         label_snickers = new JLabel(new ImageIcon(snickers));
         label_super8 = new JLabel(new ImageIcon(super8));
 
+
         // -------------- Font ------------------------
         Font fuente = new Font("monospace", Font.PLAIN, 18);
         Font fuente_boton = new Font("monospace", Font.PLAIN, 10);
+
 
         // --------- Personalizar Label -----------------------
         dinero.setOpaque(true);
@@ -192,8 +193,8 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         label_snickers.setBounds(10, 210, 60, 45);
         label_super8.setBounds(10, 260, 60, 45);
 
-        // ----------- Botones ----------------
 
+        // ----------- Botones ----------------
         consumir_fanta = new JButton("Consumir");
         consumir_cocacola = new JButton("Consumir");
         consumir_sprite = new JButton("Consumir");
@@ -226,8 +227,8 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         consumir_snickers.setBounds(210, 210, 80, 40);
         consumir_super8.setBounds(210, 260, 80, 40);
 
-        // ---------- Label cuantos Productos ----------
 
+        // ---------- Label cuantos Productos ----------
         cuanta_fanta = new JLabel();
         cuanta_cocacola = new JLabel();
         cuanta_sprite = new JLabel();
@@ -240,8 +241,8 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         editorLabel(cuanta_snickers, fuente_boton);
         editorLabel(cuanta_super8, fuente_boton);
 
-        // ----------- Add Label Productos in Panel ----------
 
+        // ----------- Add Label Productos in Panel ----------
         this.add(cuanta_fanta);
         this.add(cuanta_cocacola);
         this.add(cuanta_sprite);
@@ -359,6 +360,11 @@ public class Panel_Inventario extends JPanel implements ActionListener {
         cambiarText(cuanta_super8, "Cantidad: " + inv_super8);
     }
 
+    /**
+     * Metodo para personalizar los botones
+     * @param b Boton
+     * @param texto Text que le queremos agregar
+     */
     public void personalizarBotones(JButton b, String texto){
         b.setFocusable(false);
         b.setBackground(Color.gray);

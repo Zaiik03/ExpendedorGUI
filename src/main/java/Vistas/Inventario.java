@@ -14,13 +14,8 @@ public class Inventario extends JFrame {
 
     /**
      * Metodo constructor
-     * @param inv_coca cantidad de cocacolas en inventario
-     * @param inv_sprite cantidad de sprite en inventario
-     * @param inv_fanta cantidad de fanta en inventario
-     * @param inv_snickers cantidad de snickers en inventario
-     * @param inv_super8 cantidad de super8 en inventario
      */
-    public Inventario(int inv_coca, int inv_sprite, int inv_fanta, int inv_snickers, int inv_super8){
+    public Inventario(){
         panel_inventario = new Panel_Inventario(3000);
         panel_inventario.modificarInventario();
         this.add(panel_inventario);
@@ -30,7 +25,6 @@ public class Inventario extends JFrame {
      * Metodo para mostrar la ventana
      */
     public void activarPanel(){
-
         this.setVisible(true);
         this.setTitle("Inventario");
         this.setResizable(false);

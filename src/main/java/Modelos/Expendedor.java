@@ -88,14 +88,11 @@ public class Expendedor {
      * Método para comprar Productos
      * @param moneda es una moneda ingresada por el usuario
      * @param cual indica el producto que escogerá
-     * @return tipo producto, devuelve el producto que se quiere comprar
      * @throws PagoIncorrectoException, indica situación donde la moneda es null
      * @throws PagoInsuficienteException, indica situación donde moneda es inferior al precio del producto
      * @throws NoHayProductoException, indica situación donde el Deposito no tiene stock del producto
      */
     public void comprarProducto(Moneda moneda, int cual) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
-
-        // Caso moneda null
 
         switch(cual){
             case COCA:

@@ -142,7 +142,7 @@ public class PanelComprador extends JPanel implements ActionListener {
         timer_monedaNull.addActionListener(this);
         timer_monedaNull.start();
 
-        animacion_moneda = new Timer(100, null);
+        animacion_moneda = new Timer(50, null);
         animacion_moneda.addActionListener(this);
 
         moneda100_img = new ImageIcon("./src/main/java/Vistas/Fotos/moneda100.png").getImage();
@@ -190,9 +190,7 @@ public class PanelComprador extends JPanel implements ActionListener {
         confirmar_moneda.setBounds(5, 110, 150,25);
         panel_monedas.add(confirmar_moneda);
 
-
         panel_expendedor.contenedor_monedas.add(panel_monedas);
-
 
         ButtonGroup grupo_monedas = new ButtonGroup();
         grupo_monedas.add(moneda100);
@@ -204,6 +202,10 @@ public class PanelComprador extends JPanel implements ActionListener {
         timer_monedaNull.start();
 
         panel_expendedor.panel_botones.add(inventario);
+        inventario.setFocusable(false);
+        inventario.setBackground(new Color(0xFF4C79FF, true));
+        inventario.setForeground(Color.white);
+        inventario.setToolTipText("Abrir inventario");
 
         moneda_entrando = new MusicPlayer();
 
