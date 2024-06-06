@@ -184,7 +184,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
     /**
      * Boolean para los estados
      */
-    boolean producto_borrado = false;
+    public boolean producto_borrado = false;
     /**
      * Inventario para desplegar ventana de inventario
      */
@@ -209,7 +209,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
 
         inventario = new Inventario();
 
-        expendedor = new Expendedor(1);
+        expendedor = new Expendedor(3);
 
         this.setPreferredSize(new Dimension(777,1023));
 
@@ -432,6 +432,7 @@ public class PanelExpendedor extends JPanel implements ActionListener {
             }
             seleccion = 0;
             boton_recoger.setEnabled(false);
+            
         } else if(e.getSource() == boton_comprar){
             label_precio_act(label_precios, "Precio:       ");
             boton_recoger.setEnabled(true);

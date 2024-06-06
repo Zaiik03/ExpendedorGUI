@@ -248,7 +248,9 @@ public class PanelComprador extends JPanel implements ActionListener {
                 moneda_destino = false;
                 panel_expendedor.inventario.panel_inventario.billetera_comprador -= 100;
                 panel_expendedor.inventario.panel_inventario.modificarInventario();
+                confirmar_moneda.setEnabled(false);
                 repaint();
+
             } else if(seleccion_moneda == 500 && panel_expendedor.inventario.panel_inventario.billetera_comprador - 500 >= 0){
                 panel_expendedor.moneda = new Moneda500();
                 moneda100.setEnabled(false);
@@ -261,19 +263,20 @@ public class PanelComprador extends JPanel implements ActionListener {
                 moneda_destino = false;
                 panel_expendedor.inventario.panel_inventario.billetera_comprador -= 500;
                 panel_expendedor.inventario.panel_inventario.modificarInventario();
+                confirmar_moneda.setEnabled(false);
                 repaint();
             } else if(seleccion_moneda == 1000 && panel_expendedor.inventario.panel_inventario.billetera_comprador - 1000 >= 0){
                 panel_expendedor.moneda = new Moneda1000();
                 moneda100.setEnabled(false);
                 moneda500.setEnabled(false);
                 moneda1000.setEnabled(false);
-
                 pos_baseX = 750;
                 pos_baseY = 0;
                 animacion_moneda.start();
                 moneda_destino = false;
                 panel_expendedor.inventario.panel_inventario.billetera_comprador -= 1000;
                 panel_expendedor.inventario.panel_inventario.modificarInventario();
+                confirmar_moneda.setEnabled(false);
                 repaint();
             }
         } else if(e.getSource() == timer_monedaNull){
@@ -281,6 +284,9 @@ public class PanelComprador extends JPanel implements ActionListener {
                 moneda100.setEnabled(true);
                 moneda500.setEnabled(true);
                 moneda1000.setEnabled(true);
+                if(!panel_expendedor.producto_borrado){
+                    confirmar_moneda.setEnabled(true);
+                }
             }
         } else if(e.getSource() == inventario){
             panel_expendedor.inventario.activarPanel();

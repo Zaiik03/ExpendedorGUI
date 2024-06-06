@@ -16,7 +16,7 @@ public class Inventario extends JFrame {
      * Metodo constructor
      */
     public Inventario(){
-        panel_inventario = new Panel_Inventario(3000);
+        panel_inventario = new Panel_Inventario(4000);
         panel_inventario.modificarInventario();
         this.add(panel_inventario);
     }
